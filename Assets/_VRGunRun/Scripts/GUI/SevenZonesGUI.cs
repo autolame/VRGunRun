@@ -22,7 +22,7 @@ public class SevenZonesGUI : MonoBehaviour
     [SerializeField] float touchPointerMaxRange = 0.3f;
 
     [SerializeField] private Button[] buttons = new Button[7];
-    public bool highlightedBtnPressed = false;
+
 
     private void Start()
     {
@@ -30,33 +30,6 @@ public class SevenZonesGUI : MonoBehaviour
         touchInputSevenZones = gameObject.AddComponent<TouchInputSevenZones>();
         touchInputSevenZones.hand = activeHand;
     }
-
-    private void Update()
-    {
-        UpdateTouchPointer();
-        // highlight the hovered button
-        if (TouchedButtonIndex >= 0 && TouchedButtonIndex < buttons.Length)
-        {
-            if (highlightedBtnPressed)
-            {
-                buttons[TouchedButtonIndex].onClick.Invoke();
-                highlightedBtnPressed = false;
-            }
-            else
-            {
-                buttons[TouchedButtonIndex].Select();
-            }
-        }
-        else
-        {
-            // TODO deselect button
-            foreach (var button in buttons)
-            {
-
-            }
-        }
-    }
-
     private int TouchedButtonIndex
     {
         get
@@ -77,6 +50,43 @@ public class SevenZonesGUI : MonoBehaviour
             { return 6; }
             else
             { return -1; }
+        }
+    }
+    private int PressedButtonIndex
+    {
+        get
+        {
+            if (touchInputSevenZones.MidButtonPressed)
+            { return 0; }
+            else if (touchInputSevenZones.TopMidButtonPressed)
+            { return 1; }
+            else if (touchInputSevenZones.BotMidButtonPressed)
+            { return 2; }
+            else if (touchInputSevenZones.TopLeftButtonPressed)
+            { return 3; }
+            else if (touchInputSevenZones.TopRightButtonPressed)
+            { return 4; }
+            else if (touchInputSevenZones.BotRightButtonPressed)
+            { return 5; }
+            else if (touchInputSevenZones.BotLeftButtonPressed)
+            { return 6; }
+            else
+            { return -1; }
+        }
+    }
+
+    private void Update()
+    {
+        UpdateTouchPointer();
+        // highlight the hovered button
+        if (TouchedButtonIndex != -1 && TouchedButtonIndex < buttons.Length)
+        {
+            buttons[TouchedButtonIndex].Select();
+        }
+
+        if (PressedButtonIndex != -1 && TouchedButtonIndex < buttons.Length)
+        {
+            buttons[TouchedButtonIndex].onClick.Invoke();
         }
     }
 
@@ -102,6 +112,7 @@ public class SevenZonesGUI : MonoBehaviour
     public void TopMidBtnPressed()
     {
 
+
     }
     public void BotMidBtnPressed()
     {
@@ -109,14 +120,10 @@ public class SevenZonesGUI : MonoBehaviour
     }
     public void TopLeftBtnPressed()
     {
-        // TODO test 
-        gamePlayerManager.DecreaseItemIndex();
-        gamePlayerManager.AttachItemIntoHand();
+
     }
     public void TopRightBtnPressed()
     {
-        // TODO test
-        gamePlayerManager.IncreaseItemIndex();
 
     }
     public void BotLeftBtnPressed()
@@ -127,5 +134,4 @@ public class SevenZonesGUI : MonoBehaviour
     {
 
     }
-
 }

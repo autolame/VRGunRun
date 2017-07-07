@@ -16,7 +16,13 @@ public class TouchInputSevenZones : MonoBehaviour
     private float midButtonRadius = 0.3f;
     public Vector2 touchPosition
     {
-        get { return hand.controller.GetAxis(); }
+        get
+        {
+            if (hand)
+                return hand.controller.GetAxis();
+            else
+                return Vector2.zero;
+        }
     }
     public bool touched
     {

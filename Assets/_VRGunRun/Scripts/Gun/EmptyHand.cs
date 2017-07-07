@@ -19,8 +19,7 @@ public class EmptyHand : MonoBehaviour
     public Handedness currentHandGuess = Handedness.Right;
 
     private Hand hand;
-    [SerializeField] private SevenZonesGUI defaultSevenZonesGUIPrefab;
-    [SerializeField] private SevenZonesGUI currentSevenZonesGUI;
+    [SerializeField] private SevenZonesGUI sevenZonesGUI;
     [SerializeField] private Transform guiTransform;
 
     private GamePlayerManager gamePlayerManager;
@@ -31,12 +30,8 @@ public class EmptyHand : MonoBehaviour
     private void OnAttachedToHand(Hand attachedHand)
     {
         hand = attachedHand;
-
-        if (currentSevenZonesGUI == null)
-        {
-            currentSevenZonesGUI = Instantiate(defaultSevenZonesGUIPrefab, guiTransform);
-        }
-        currentSevenZonesGUI.activeHand = hand;
+        if (sevenZonesGUI && hand)
+            sevenZonesGUI.activeHand = hand;
     }
     //-------------------------------------------------------------------------------------------------
     private void Awake()

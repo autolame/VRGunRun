@@ -21,8 +21,7 @@ public class Gun : MonoBehaviour
     private Hand hand;
 
     [SerializeField] private GunGUI handGunGUI;
-    [SerializeField] private SevenZonesGUI defaultSevenZonesGUIPrefab;
-    [SerializeField] private SevenZonesGUI currentSevenZonesGUI;
+    [SerializeField] private SevenZonesGUI sevenZonesGUI;
     [SerializeField] Transform guiTransform;
 
     [SerializeField] private bool slideForwardWhenEmpty = false;
@@ -85,11 +84,8 @@ public class Gun : MonoBehaviour
     {
         hand = attachedHand;
 
-        if (currentSevenZonesGUI == null)
-        {
-            currentSevenZonesGUI = Instantiate(defaultSevenZonesGUIPrefab, guiTransform);
-        }
-        currentSevenZonesGUI.activeHand = hand;
+        if (sevenZonesGUI && hand)
+            sevenZonesGUI.activeHand = hand;
     }
     //-------------------------------------------------------------------------------------------------
     void Awake()
