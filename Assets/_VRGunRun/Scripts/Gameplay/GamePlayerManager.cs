@@ -12,51 +12,60 @@ using Valve.VR;
 
 public class GamePlayerManager : MonoBehaviour
 {
-    public Hand activeHand;
-    public int activeItemIndex;
+    [SerializeField] private Hand hand1;
+    [SerializeField] private Hand hand2;
 
+    public int activeItemIndex;
+    [EnumFlags]
+    public Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags;
+
+    public List<GameObject> cleanUpList = new List<GameObject>();
+
+    [SerializeField] private EmptyHand emptyHand;
     [SerializeField] private List<Gun> gunList = new List<Gun>();
 
-
-
-    public Hand ActiveHand
-    {
-        get { return activeHand; }
-        set { activeHand = value; }
-    }
-
-    public void SetActiveHand(Hand hand)
-    {
-        activeHand = hand;
-    }
     public void IncreaseItemIndex()
     {
         if (activeItemIndex < gunList.Count - 1)
-        {
-            activeItemIndex++;
-        }
+        { activeItemIndex++; }
         else
-        {
-            activeItemIndex = 0;
-        }
+        { activeItemIndex = 0; }
     }
     public void DecreaseItemIndex()
     {
-        if (activeItemIndex < gunList.Count - 1)
-        {
-            activeItemIndex--;
-        }
+        if (activeItemIndex > 0)
+        { activeItemIndex--; }
         else
+        { activeItemIndex = gunList.Count - 1; }
+    }
+    public void QueueForCleanUp(GameObject gameObject)
+    {
+        cleanUpList.Add(gameObject);
+    }
+    public void CleanHand(Hand hand)
+    {
+        foreach (var go in cleanUpList)
         {
-            activeItemIndex = gunList.Count - 1;
+            Destroy(go);
         }
+    }
+    public void SpawnItemAndAttachToHand(Hand hand)
+    {
+        var newItem = Instantiate(gunList[activeItemIndex]);
+        hand.AttachObject(newItem.gameObject, attachmentFlags, "");
+        newItem.gameObject.SetActive(true);
+
+        CleanHand(hand);
     }
 
-    public void AttachItemIntoHand()
+    public void EmptyHand(Hand hand)
     {
-        // TODO Straighten this out
-        var itemToAttach = Instantiate(gunList[activeItemIndex].gameObject);
-        activeHand.AttachObject(itemToAttach, Hand.defaultAttachmentFlags, string.Empty);
+        var newItem = Instantiate(emptyHand);
+        hand.AttachObject(newItem.gameObject, attachmentFlags, "");
+        newItem.gameObject.SetActive(true);
+
+        CleanHand(hand);
     }
+
 
 }

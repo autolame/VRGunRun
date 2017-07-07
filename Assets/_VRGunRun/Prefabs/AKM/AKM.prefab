@@ -913,7 +913,6 @@ GameObject:
   - component: {fileID: 114381924182059378}
   - component: {fileID: 95825311545398350}
   - component: {fileID: 114390901821646958}
-  - component: {fileID: 114170203954601284}
   m_Layer: 0
   m_Name: AKM
   m_TagString: Untagged
@@ -2336,19 +2335,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114170203954601284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953346508812170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d4cc6cf300b3e4bb1411c4e041030c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teleportAllowed: 1
-  overrideHoverLock: 1
 --- !u!114 &114202852376099104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2413,7 +2399,7 @@ MonoBehaviour:
   hapticFeedbackStrength: 3500
   defaultMagSize: 30
   muzzleVelocity: 715
-  autoFire: 0
+  autoFire: 1
   autoFireRate: 10
   loadedMagazine: {fileID: 1666098680349786}
   ejectedMagazine: {fileID: 1971320776963382}
@@ -2431,6 +2417,7 @@ MonoBehaviour:
   bulletCase: {fileID: 114824822646804898, guid: 7e646d5772b1bc247a764be7beb65cb4,
     type: 2}
   laserSight: {fileID: 114570277240726614}
+  toggleLaserSight: 0
   autoSpawnMagazineHand: 1
   magazineHandItemPackage: {fileID: 11450054, guid: 86ed369ecd9e9ec458186fa8656353b2,
     type: 2}

@@ -22,7 +22,7 @@ public class EmptyHand : MonoBehaviour
     [SerializeField] private SevenZonesGUI sevenZonesGUI;
     [SerializeField] private Transform guiTransform;
 
-    private GamePlayerManager gamePlayerManager;
+    private GamePlayerManager gameplayManager;
 
     private SteamVR_Events.Action newPosesAppliedAction;
 
@@ -37,8 +37,7 @@ public class EmptyHand : MonoBehaviour
     private void Awake()
     {
         newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
-        gamePlayerManager = FindObjectOfType<GamePlayerManager>();
-        gamePlayerManager.activeHand = hand;
+        gameplayManager = FindObjectOfType<GamePlayerManager>();
     }
     //-------------------------------------------------------------------------------------------------
     private void Start()
@@ -69,7 +68,21 @@ public class EmptyHand : MonoBehaviour
     //-------------------------------------------------------------------------------------------------
     private void HandAttachedUpdate(Hand hand)
     {
+        if (sevenZonesGUI.TopRightBtnPressed())
+        {
+            gameplayManager.QueueForCleanUp(gameObject);
+            //gameplayManager.EmptyHand(hand);
+            gameplayManager.IncreaseItemIndex();
+            gameplayManager.SpawnItemAndAttachToHand(hand);
+        }
 
+        if (sevenZonesGUI.TopLeftBtnPressed())
+        {
+            gameplayManager.QueueForCleanUp(gameObject);
+            //gameplayManager.EmptyHand(hand);
+            gameplayManager.DecreaseItemIndex();
+            gameplayManager.SpawnItemAndAttachToHand(hand);
+        }
     }
     //-------------------------------------------------------------------------------------------------
 

@@ -18,6 +18,7 @@ public class Gun : MonoBehaviour
     public enum Handedness { Left, Right };
     public Handedness currentHandGuess = Handedness.Right;
     private Hand hand;
+    private GamePlayerManager gameplayManager;
 
     [Header("GUI Setup")]
     Transform guiTransform;
@@ -36,7 +37,6 @@ public class Gun : MonoBehaviour
     [SerializeField] private float autoFireRate = 20; // shot per second (glock 17)
 
     [Header("Functionality Setup")]
-    private bool toggleLaserSight = true;
     private bool caseEjected = false;
     private bool magEjected = false;
 
@@ -50,6 +50,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private GunAmmoBullet bullet;
     [SerializeField] private GunAmmoCartridge bulletCase;
     [SerializeField] private GunAttachmentLaserSight laserSight;
+    [SerializeField] private bool toggleLaserSight = true;
 
     [SerializeField] private bool autoSpawnMagazineHand = true;
     [SerializeField] private ItemPackage magazineHandItemPackage;
@@ -83,6 +84,8 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+        gameplayManager = FindObjectOfType<GamePlayerManager>();
+
     }
     //-------------------------------------------------------------------------------------------------
     private void Start()
@@ -126,23 +129,17 @@ public class Gun : MonoBehaviour
             // if new mag loaded DO reset slide and set mag to full
             hand.controller.TriggerHapticPulse(hapticFeedbackStrength);
 
-            if (!MagazineIsEmpty())
+            // chamber round and move slide to firing position
+            if (!magEjected)
             {
-                autoFire = !autoFire;
+                EjectMagazine();
+                currentMagSize = 0;
+                magEjected = true;
             }
             else
             {
-                // chamber round and move slide to firing position
-                if (!magEjected)
-                {
-                    EjectMagazine();
-                    magEjected = true;
-                }
-                else
-                {
-                    ReloadMagazine();
-                    magEjected = false;
-                }
+                ReloadMagazine();
+                magEjected = false;
             }
         }
 
@@ -171,22 +168,53 @@ public class Gun : MonoBehaviour
             }
         }
 
-        CheckLaserStatus();
+        if (sevenZonesGUI.BotLeftBtnPressed())
+        {
+            ToggleLaserSight();
+        }
+
+        if (sevenZonesGUI.BotRightBtnPressed())
+        {
+            ToggleAutoFire();
+        }
+
+        if (sevenZonesGUI.TopRightBtnPressed())
+        {
+            gameplayManager.QueueForCleanUp(gameObject);
+            //gameplayManager.EmptyHand(hand);
+            gameplayManager.IncreaseItemIndex();
+            gameplayManager.SpawnItemAndAttachToHand(hand);
+        }
+
+        if (sevenZonesGUI.TopLeftBtnPressed())
+        {
+            gameplayManager.QueueForCleanUp(gameObject);
+            //gameplayManager.EmptyHand(hand);
+            gameplayManager.DecreaseItemIndex();
+            gameplayManager.SpawnItemAndAttachToHand(hand);
+        }
+
+        if (sevenZonesGUI.BotMidBtnPressed())
+        {
+            gameplayManager.QueueForCleanUp(gameObject);
+            gameplayManager.EmptyHand(hand);
+        }
+
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
     }
     //-------------------------------------------------------------------------------------------------
-    private void CheckLaserStatus()
+    private void ToggleLaserSight()
     {
-        if (sevenZonesGUI.BotLeftBtnPressed())
-        {
-            toggleLaserSight = !toggleLaserSight;
-        }
+        toggleLaserSight = !toggleLaserSight;
         laserSight.gameObject.SetActive(toggleLaserSight);
     }
-
     //-------------------------------------------------------------------------------------------------
+    private void ToggleAutoFire()
+    {
+        autoFire = !autoFire;
+    }
     private void Shoot()
     {
         bullet.ShootFrom(muzzleTransform, muzzleVelocity);

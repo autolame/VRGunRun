@@ -287,9 +287,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &18358978
@@ -418,7 +418,6 @@ GameObject:
   m_Component:
   - component: {fileID: 22121783}
   - component: {fileID: 22121784}
-  - component: {fileID: 22121785}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -459,23 +458,7 @@ MonoBehaviour:
   numberOfShotMissed: 0
   evasionRatio: 0
   accuracyRatio: 0
-  skillLevel: evaluating
---- !u!114 &22121785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 22121782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dece1ffd80f1e14f8f5305bfaa8c798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeHand: {fileID: 0}
-  activeItemIndex: 0
-  gunList:
-  - {fileID: 114283109338323340, guid: 9e86bf6f6a02009478e406d11e83f8d1, type: 2}
-  - {fileID: 0}
+  skillLevel: 
 --- !u!1 &36739965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,9 +1355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &141231775
@@ -1511,9 +1494,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &142854903
@@ -2344,13 +2327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e53a985809f0949b9a42cc2a6888c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPackage: {fileID: 11450054, guid: 86ed369ecd9e9ec458186fa8656353b2, type: 2}
-  requireTriggerPressToTake: 1
-  requireTriggerPressToReturn: 1
-  showTriggerHint: 1
-  attachmentFlags: -7
+  _itemPackage: {fileID: 0}
+  requireTriggerPressToTake: 0
+  requireTriggerPressToReturn: 0
+  showTriggerHint: 0
+  attachmentFlags: 15
   attachmentPoint: 
-  takeBackItem: 1
+  takeBackItem: 0
   acceptDifferentItems: 0
   pickupEvent:
     m_PersistentCalls:
@@ -3079,13 +3062,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e53a985809f0949b9a42cc2a6888c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPackage: {fileID: 11450054, guid: 98a3ad29136d5c04f8a025adf1cbd704, type: 2}
-  requireTriggerPressToTake: 1
+  _itemPackage: {fileID: 0}
+  requireTriggerPressToTake: 0
   requireTriggerPressToReturn: 0
-  showTriggerHint: 1
-  attachmentFlags: -7
+  showTriggerHint: 0
+  attachmentFlags: 15
   attachmentPoint: 
-  takeBackItem: 1
+  takeBackItem: 0
   acceptDifferentItems: 0
   pickupEvent:
     m_PersistentCalls:
@@ -3148,16 +3131,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11450312, guid: 1659ea1e0cb4d35419d85d2aa07fe91d, type: 2}
-      propertyPath: controllerPrefab
-      value: 
-      objectReference: {fileID: 1953346508812170, guid: 9e86bf6f6a02009478e406d11e83f8d1,
+    - target: {fileID: 114032406404464204, guid: 1659ea1e0cb4d35419d85d2aa07fe91d,
         type: 2}
-    - target: {fileID: 11401046, guid: 1659ea1e0cb4d35419d85d2aa07fe91d, type: 2}
-      propertyPath: controllerPrefab
-      value: 
-      objectReference: {fileID: 1953346508812170, guid: 9e86bf6f6a02009478e406d11e83f8d1,
-        type: 2}
+      propertyPath: attachmentFlags
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1659ea1e0cb4d35419d85d2aa07fe91d, type: 2}
   m_IsPrefabParent: 0
@@ -3346,9 +3324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &340891319
@@ -3476,9 +3454,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &353251705
@@ -3885,9 +3863,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &392987908
@@ -4759,9 +4737,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &483627891
@@ -4858,7 +4836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a4f15a3179f1d4993aded11f4d0232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locked: 1
+  locked: 0
   markerActive: 1
 --- !u!23 &492562081
 MeshRenderer:
@@ -5119,7 +5097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817521c5973e4ee45905ee97df3c38ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linearMapping: {fileID: 236112115}
+  linearMapping: {fileID: 0}
   teethCount: 128
   minimumPulseDuration: 500
   maximumPulseDuration: 900
@@ -5139,9 +5117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c81a27fd18a29444be92481fe681f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {fileID: 569280807}
-  endPosition: {fileID: 193756866}
-  linearMapping: {fileID: 236112115}
+  startPosition: {fileID: 0}
+  endPosition: {fileID: 0}
+  linearMapping: {fileID: 0}
   repositionGameObject: 1
   maintainMomemntum: 1
   momemtumDampenRate: 5
@@ -5158,36 +5136,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHandHoverBegin:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1631153722}
-        m_MethodName: set_material
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 6729a932de5127b419aacfd9be7dde0d,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onHandHoverEnd:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1631153722}
-        m_MethodName: set_material
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 7e90f10e44a186a49a00679d068515ed,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onAttachedToHand:
@@ -6259,13 +6213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e53a985809f0949b9a42cc2a6888c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPackage: {fileID: 11450054, guid: 7e0e836b651b0fc46a423008be152bdf, type: 2}
-  requireTriggerPressToTake: 1
-  requireTriggerPressToReturn: 1
-  showTriggerHint: 1
-  attachmentFlags: -7
+  _itemPackage: {fileID: 0}
+  requireTriggerPressToTake: 0
+  requireTriggerPressToReturn: 0
+  showTriggerHint: 0
+  attachmentFlags: 15
   attachmentPoint: 
-  takeBackItem: 1
+  takeBackItem: 0
   acceptDifferentItems: 0
   pickupEvent:
     m_PersistentCalls:
@@ -7863,36 +7817,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHandHoverBegin:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 888846718}
-        m_MethodName: set_material
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 6729a932de5127b419aacfd9be7dde0d,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onHandHoverEnd:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 888846718}
-        m_MethodName: set_material
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 7e90f10e44a186a49a00679d068515ed,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onAttachedToHand:
@@ -7923,7 +7853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f32883eed859804dbb0c5fedac91496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axisOfRotation: 1
+  axisOfRotation: 0
   childCollider: {fileID: 0}
   linearMapping: {fileID: 0}
   hoverLock: 0
@@ -9186,9 +9116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1037956238
@@ -10082,8 +10012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634b98c3ef8bc6d4f834f80a4613a4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linearMapping: {fileID: 236112115}
-  animator: {fileID: 1114398904}
+  linearMapping: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!95 &1114398904
 Animator:
   serializedVersion: 3
@@ -11188,9 +11118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1197682329
@@ -11289,9 +11219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1200643565
@@ -11472,18 +11402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHandClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 13559869}
-        m_MethodName: ShowButtonHints
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: Valve.VR.InteractionSystem.CustomEvents+UnityEventHand, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &1202137145
@@ -13574,9 +13493,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1373755673
@@ -13773,9 +13692,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1388877131
@@ -14203,18 +14122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHandClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 13559869}
-        m_MethodName: ShowTextHints
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: Valve.VR.InteractionSystem.CustomEvents+UnityEventHand, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &1411722471
@@ -14726,9 +14634,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1438931627
@@ -15870,9 +15778,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1582837462
@@ -16158,9 +16066,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1607071682
@@ -17471,9 +17379,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDummy: {fileID: 114817552017537188, guid: 4935150dd0c947a4fb9ee229a7b3717b,
     type: 2}
-  maxlaunchRate: 30
-  minlaunchRate: 10
-  maxLaunchForce: 30
+  maxlaunchRate: 10
+  minlaunchRate: 5
+  maxLaunchForce: 50
   minLaunchForce: 10
   LaunchRate: 1
 --- !u!23 &1773653908
