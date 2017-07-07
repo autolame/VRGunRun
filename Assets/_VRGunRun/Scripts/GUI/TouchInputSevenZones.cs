@@ -240,7 +240,7 @@ public class TouchInputSevenZones : MonoBehaviour
         {
             if (touched)
             {
-                if (MidButtonHover)
+                if (BotLeftButtonHover)
                 {
                     if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
                     { return true; }

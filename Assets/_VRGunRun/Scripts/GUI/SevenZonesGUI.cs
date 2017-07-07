@@ -81,37 +81,37 @@ public class SevenZonesGUI : MonoBehaviour
         {
             if (touchInputSevenZones.MidButtonPressed)
             {
-                //Debug.Log("MidButtonPressed");
+                Debug.Log("MidButtonPressed");
                 return 0;
             }
             else if (touchInputSevenZones.TopMidButtonPressed)
             {
-                //Debug.Log("TopMidButtonPressed");
+                Debug.Log("TopMidButtonPressed");
                 return 1;
             }
             else if (touchInputSevenZones.TopRightButtonPressed)
             {
-                //Debug.Log("BotMidButtonPressed");
+                Debug.Log("TopRightButtonPressed");
                 return 2;
             }
             else if (touchInputSevenZones.BotRightButtonPressed)
             {
-                //Debug.Log("TopLeftButtonPressed");
+                Debug.Log("BotRightButtonPressed");
                 return 3;
             }
             else if (touchInputSevenZones.BotMidButtonPressed)
             {
-                //Debug.Log("TopRightButtonPressed");
+                Debug.Log("BotMidButtonPressed");
                 return 4;
             }
             else if (touchInputSevenZones.BotLeftButtonPressed)
             {
-                //Debug.Log("BotRightButtonPressed");
+                Debug.Log("BotLeftButtonPressed");
                 return 5;
             }
             else if (touchInputSevenZones.TopLeftButtonPressed)
             {
-                //Debug.Log("BotLeftButtonPressed");
+                Debug.Log("TopLeftButtonPressed");
                 return 6;
             }
             else
