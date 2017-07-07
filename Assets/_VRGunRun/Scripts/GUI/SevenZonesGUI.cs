@@ -88,6 +88,11 @@ public class SevenZonesGUI : MonoBehaviour
         {
             buttons[TouchedButtonIndex].onClick.Invoke();
         }
+
+        if (touchInputSevenZones.touched)
+        { GetComponent<Canvas>().enabled = true; }
+        else
+        { GetComponent<Canvas>().enabled = false; }
     }
 
     public void UpdateTouchPointer()

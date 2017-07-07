@@ -40,7 +40,7 @@ public class Gun : MonoBehaviour
     private bool caseEjected = false;
     private bool magEjected = false;
 
-    [SerializeField] private GameObject loadedMagazine, ejectedMagazine, loadGuide;
+    [SerializeField] private GameObject loadedMagazine, ejectedMagazine;
     [SerializeField] private Transform muzzleTransform, cartridgeEjectTransform;
     [SerializeField] private Transform triggerTransform, triggerRestTransform, triggerActionTransform;
     [SerializeField] private Transform slideTransform, slideFeecbackTransform, slideOriginalTransform;
