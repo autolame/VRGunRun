@@ -36,37 +36,30 @@ public class SevenZonesGUI : MonoBehaviour
         {
             if (touchInputSevenZones.MidButtonHover)
             {
-                //Debug.Log("MidButtonHover");
                 return 0;
             }
             else if (touchInputSevenZones.TopMidButtonHover)
             {
-                //Debug.Log("TopMidButtonHover");
                 return 1;
             }
             else if (touchInputSevenZones.TopRightButtonHover)
             {
-                //Debug.Log("BotMidButtonHover");
                 return 2;
             }
             else if (touchInputSevenZones.BotRightButtonHover)
             {
-                //Debug.Log("TopLeftButtonHover");
                 return 3;
             }
             else if (touchInputSevenZones.BotMidButtonHover)
             {
-                //Debug.Log("TopRightButtonHover");
                 return 4;
             }
             else if (touchInputSevenZones.BotLeftButtonHover)
             {
-                //Debug.Log("BotRightButtonHover");
                 return 5;
             }
             else if (touchInputSevenZones.TopLeftButtonHover)
             {
-                //Debug.Log("BotLeftButtonHover");
                 return 6;
             }
             else
@@ -81,37 +74,30 @@ public class SevenZonesGUI : MonoBehaviour
         {
             if (touchInputSevenZones.MidButtonPressed)
             {
-                Debug.Log("MidButtonPressed");
                 return 0;
             }
             else if (touchInputSevenZones.TopMidButtonPressed)
             {
-                Debug.Log("TopMidButtonPressed");
                 return 1;
             }
             else if (touchInputSevenZones.TopRightButtonPressed)
             {
-                Debug.Log("TopRightButtonPressed");
                 return 2;
             }
             else if (touchInputSevenZones.BotRightButtonPressed)
             {
-                Debug.Log("BotRightButtonPressed");
                 return 3;
             }
             else if (touchInputSevenZones.BotMidButtonPressed)
             {
-                Debug.Log("BotMidButtonPressed");
                 return 4;
             }
             else if (touchInputSevenZones.BotLeftButtonPressed)
             {
-                Debug.Log("BotLeftButtonPressed");
                 return 5;
             }
             else if (touchInputSevenZones.TopLeftButtonPressed)
             {
-                Debug.Log("TopLeftButtonPressed");
                 return 6;
             }
             else
