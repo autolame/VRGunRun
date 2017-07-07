@@ -42,7 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Handgun
   packageType: 1
-  itemPrefab: {fileID: 173346, guid: 665c3d79ffbd9b749b3abb174ac61489, type: 2}
+  itemPrefab: {fileID: 1812938309431774, guid: 0d779a2c471a3cb42843ea493c6ce604, type: 2}
   otherHandItemPrefab: {fileID: 0}
   previewPrefab: {fileID: 1287678270453184, guid: cf8cbe2665fb18a4c9c49f6f09df000e,
     type: 2}

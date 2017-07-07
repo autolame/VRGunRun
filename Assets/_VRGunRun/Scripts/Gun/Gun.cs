@@ -17,47 +17,39 @@ public class Gun : MonoBehaviour
 {
     public enum Handedness { Left, Right };
     public Handedness currentHandGuess = Handedness.Right;
-
     private Hand hand;
 
-    [SerializeField] private GunGUI handGunGUI;
+    [Header("GUI Setup")]
+    Transform guiTransform;
+    [SerializeField] private GunGUI gunGUI;
     [SerializeField] private SevenZonesGUI sevenZonesGUI;
-    [SerializeField] Transform guiTransform;
 
+    [Header("Gameplay Setup")]
+    private int currentMagSize;
+    private float fireReset = 1f;
+    private bool isFiring = false;
+    [SerializeField] private ParticleFX muzzleFlash, caseEject;
+    [SerializeField] private ushort hapticFeedbackStrength = 2000;
+    [SerializeField] private int defaultMagSize = 17;  // glock 17
+    [SerializeField] private float muzzleVelocity = 1200f;
+    [SerializeField] private bool autoFire = false;
+    [SerializeField] private float autoFireRate = 20; // shot per second (glock 17)
+
+    [Header("Functionality Setup")]
+    private bool toggleLaserSight = true;
+    private bool caseEjected = false;
+    private bool magEjected = false;
+
+    [SerializeField] private GameObject loadedMagazine, ejectedMagazine, loadGuide;
+    [SerializeField] private Transform muzzleTransform, cartridgeEjectTransform;
+    [SerializeField] private Transform triggerTransform, triggerRestTransform, triggerActionTransform;
+    [SerializeField] private Transform slideTransform, slideFeecbackTransform, slideOriginalTransform;
+    [SerializeField] private float sliderSpeed = 1f;
     [SerializeField] private bool slideForwardWhenEmpty = false;
 
     [SerializeField] private GunAmmoBullet bullet;
     [SerializeField] private GunAmmoCartridge bulletCase;
-
     [SerializeField] private GunAttachmentLaserSight laserSight;
-    bool toggleLaserSight = true;
-
-    [SerializeField] private Transform slide, slideFeecbackTransform, slideOriginalTransform;
-    [SerializeField] private float sliderSpeed = 1f;
-
-    [SerializeField] private Transform trigger, triggerRestTransform, triggerActionTransform;
-
-    [SerializeField] private int defaultMagSize = 17;  // glock 17
-
-    int currentMagSize;
-    bool caseEjected = false;
-    bool magEjected = false;
-
-    [SerializeField] private float autoFireRate = 20; // shot per second (glock 17)
-    [SerializeField] private bool autoFire = false;
-
-    [SerializeField] private float muzzleVelocity = 1200f;
-
-    [SerializeField] private ParticleFX muzzleFlash, caseEject;
-
-    [SerializeField] private ushort hapticFeedbackStrength = 2000;
-
-    private float fireReset = 1f;
-    private bool isFiring = false;
-
-    [SerializeField] private Transform muzzleTransform, ejectionPortTransform;
-
-    public GameObject loadedMagazine, ejectedMagazine, loadGuide;
 
     [SerializeField] private bool autoSpawnMagazineHand = true;
     [SerializeField] private ItemPackage magazineHandItemPackage;
@@ -122,7 +114,7 @@ public class Gun : MonoBehaviour
     {
         float axisValue = hand.controller.GetAxis(EVRButtonId.k_EButton_SteamVR_Trigger).x;
 
-        trigger.localRotation = Quaternion.Lerp(triggerRestTransform.localRotation, triggerActionTransform.localRotation, axisValue);
+        triggerTransform.localRotation = Quaternion.Lerp(triggerRestTransform.localRotation, triggerActionTransform.localRotation, axisValue);
     }
     //-------------------------------------------------------------------------------------------------
     private void HandAttachedUpdate(Hand hand)
@@ -178,87 +170,13 @@ public class Gun : MonoBehaviour
                 }
             }
         }
-        EvaluateTouchPress(hand);
 
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
     }
     //-------------------------------------------------------------------------------------------------
-    private void EvaluateTouchPress(Hand hand)
-    {
-        // divided into 7 sections
-        // middle button and 6 outer
-        float middleSectionMin = -0.3f;
-        float middleSectionMax = 0.3f;
 
-        // touch button is pressed
-        if (hand.controller.GetAxis() != Vector2.zero)
-        {
-            // set the active hand to the GUI           
-            handGunGUI.activeHand = hand;
-            // show canvas
-            handGunGUI.GetComponent<Canvas>().enabled = true;
-            // get touch coord
-            Vector2 touchInput = hand.controller.GetAxis();
-            // radius from middle
-            float touchMagFromMiddle = touchInput.magnitude;
-            // move touch pointer
-            handGunGUI.MoveIndexPointerTo(touchInput);
-
-            // TODO if statement here?
-            {
-                if (touchMagFromMiddle < middleSectionMax && (touchInput.x > middleSectionMin && touchInput.x < middleSectionMax) && (touchInput.y > middleSectionMin && touchInput.y < middleSectionMax))
-                {
-                    handGunGUI.highlightedBtnIndex = 0;
-                    // middle section check passed
-                    if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
-                    {
-                        // thumb button pressed down
-                        toggleLaserSight = !toggleLaserSight;
-                        laserSight.gameObject.SetActive(toggleLaserSight);
-                        handGunGUI.highlightedBtnPressed = true;
-                    }
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x > middleSectionMin && touchInput.x < middleSectionMax) && (touchInput.y > middleSectionMax))
-                {
-                    // top middle check passed
-                    handGunGUI.highlightedBtnIndex = 1;
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x > middleSectionMin && touchInput.x < middleSectionMax) && (touchInput.y < middleSectionMin))
-                {
-                    // bottom middle check passed
-                    handGunGUI.highlightedBtnIndex = 2;
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x < middleSectionMax) && (touchInput.y > middleSectionMax))
-                {
-                    // top left check passed
-                    handGunGUI.highlightedBtnIndex = 3;
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x > middleSectionMax) && (touchInput.y > middleSectionMax))
-                {
-                    // top right check passed
-                    handGunGUI.highlightedBtnIndex = 4;
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x < middleSectionMax) && (touchInput.y < middleSectionMax))
-                {
-                    // bottom left check passed
-                    handGunGUI.highlightedBtnIndex = 5;
-                }
-                else if (touchMagFromMiddle > middleSectionMax && (touchInput.x > middleSectionMax) && (touchInput.y < middleSectionMax))
-                {
-                    // bottom right check passed
-                    handGunGUI.highlightedBtnIndex = 6;
-                }
-            }
-        }
-        else
-        {
-            handGunGUI.GetComponent<Canvas>().enabled = false;
-            handGunGUI.touchPointer.SetActive(false);
-            handGunGUI.highlightedBtnIndex = -1;
-        }
-    }
 
     //-------------------------------------------------------------------------------------------------
     private void Shoot()
@@ -307,8 +225,8 @@ public class Gun : MonoBehaviour
     //-------------------------------------------------------------------------------------------------
     void UpdateGUI()
     {
-        handGunGUI.remainingBulletCount = currentMagSize;
-        handGunGUI.autoFire = autoFire;
+        gunGUI.remainingBulletCount = currentMagSize;
+        gunGUI.autoFire = autoFire;
     }
     //-------------------------------------------------------------------------------------------------
     void SlideFeedback(float speed)
@@ -325,7 +243,7 @@ public class Gun : MonoBehaviour
         //}
 
         // move to position to eject case
-        if (slide.localPosition == slideFeecbackTransform.localPosition)
+        if (slideTransform.localPosition == slideFeecbackTransform.localPosition)
         {
             // position reached
             if (MagazineIsEmpty()) // check if mag is empty
@@ -348,14 +266,14 @@ public class Gun : MonoBehaviour
 
         if (isFiring)
         {
-            slide.localPosition = Vector3.MoveTowards(slide.localPosition, slideFeecbackTransform.localPosition, slideForwardRate);
+            slideTransform.localPosition = Vector3.MoveTowards(slideTransform.localPosition, slideFeecbackTransform.localPosition, slideForwardRate);
             //slide.localPosition = Vector3.SmoothDamp(slide.localPosition, slideFeecbackTransform.localPosition, ref velocity, slideBackwardRate);
             //slideOpenSound.Play();
         }
         else
         {
             // get back into position to be ready to fire again 
-            slide.localPosition = Vector3.MoveTowards(slide.localPosition, slideOriginalTransform.localPosition, slideForwardRate);
+            slideTransform.localPosition = Vector3.MoveTowards(slideTransform.localPosition, slideOriginalTransform.localPosition, slideForwardRate);
             caseEjected = false;
             //slideCloseSound.Play();
         }
@@ -365,7 +283,7 @@ public class Gun : MonoBehaviour
     {
         if (!caseEjected)
         {
-            bulletCase.EjectFrom(ejectionPortTransform, Random.Range(2f, 4f));
+            bulletCase.EjectFrom(cartridgeEjectTransform, Random.Range(2f, 4f));
             SpawnFX(caseEject, 1f);
         }
     }
