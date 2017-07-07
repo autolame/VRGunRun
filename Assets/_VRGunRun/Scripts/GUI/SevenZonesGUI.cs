@@ -35,21 +35,44 @@ public class SevenZonesGUI : MonoBehaviour
         get
         {
             if (touchInputSevenZones.MidButtonHover)
-            { return 0; }
+            {
+                //Debug.Log("MidButtonHover");
+                return 0;
+            }
             else if (touchInputSevenZones.TopMidButtonHover)
-            { return 1; }
+            {
+                //Debug.Log("TopMidButtonHover");
+                return 1;
+            }
             else if (touchInputSevenZones.BotMidButtonHover)
-            { return 2; }
+            {
+                //Debug.Log("BotMidButtonHover");
+                return 2;
+            }
             else if (touchInputSevenZones.TopLeftButtonHover)
-            { return 3; }
+            {
+                //Debug.Log("TopLeftButtonHover");
+                return 3;
+            }
             else if (touchInputSevenZones.TopRightButtonHover)
-            { return 4; }
+            {
+                //Debug.Log("TopRightButtonHover");
+                return 4;
+            }
             else if (touchInputSevenZones.BotRightButtonHover)
-            { return 5; }
+            {
+                //Debug.Log("BotRightButtonHover");
+                return 5;
+            }
             else if (touchInputSevenZones.BotLeftButtonHover)
-            { return 6; }
+            {
+                //Debug.Log("BotLeftButtonHover");
+                return 6;
+            }
             else
-            { return -1; }
+            {
+                return -1;
+            }
         }
     }
     private int PressedButtonIndex
@@ -57,19 +80,40 @@ public class SevenZonesGUI : MonoBehaviour
         get
         {
             if (touchInputSevenZones.MidButtonPressed)
-            { return 0; }
+            {
+                //Debug.Log("MidButtonPressed");
+                return 0;
+            }
             else if (touchInputSevenZones.TopMidButtonPressed)
-            { return 1; }
+            {
+                //Debug.Log("TopMidButtonPressed");
+                return 1;
+            }
             else if (touchInputSevenZones.BotMidButtonPressed)
-            { return 2; }
+            {
+                //Debug.Log("BotMidButtonPressed");
+                return 2;
+            }
             else if (touchInputSevenZones.TopLeftButtonPressed)
-            { return 3; }
+            {
+                //Debug.Log("TopLeftButtonPressed");
+                return 3;
+            }
             else if (touchInputSevenZones.TopRightButtonPressed)
-            { return 4; }
+            {
+                //Debug.Log("TopRightButtonPressed");
+                return 4;
+            }
             else if (touchInputSevenZones.BotRightButtonPressed)
-            { return 5; }
+            {
+                //Debug.Log("BotRightButtonPressed");
+                return 5;
+            }
             else if (touchInputSevenZones.BotLeftButtonPressed)
-            { return 6; }
+            {
+                //Debug.Log("BotLeftButtonPressed");
+                return 6;
+            }
             else
             { return -1; }
         }
@@ -110,33 +154,32 @@ public class SevenZonesGUI : MonoBehaviour
 
     // those methods will be used in the editor to trigger button functions
     // TODO make the button actually have functions
-    public void MidBtnPressed()
+    public bool MidBtnPressed()
     {
-
+        return touchInputSevenZones.MidButtonPressed;
     }
-    public void TopMidBtnPressed()
+    public bool TopMidBtnPressed()
     {
-
-
+        return touchInputSevenZones.TopMidButtonPressed;
     }
-    public void BotMidBtnPressed()
+    public bool BotMidBtnPressed()
     {
-
+        return touchInputSevenZones.BotMidButtonPressed;
     }
-    public void TopLeftBtnPressed()
+    public bool TopLeftBtnPressed()
     {
-
+        return touchInputSevenZones.TopLeftButtonPressed;
     }
-    public void TopRightBtnPressed()
+    public bool TopRightBtnPressed()
     {
-
+        return touchInputSevenZones.TopRightButtonPressed;
     }
-    public void BotLeftBtnPressed()
+    public bool BotLeftBtnPressed()
     {
-
+        return touchInputSevenZones.BotLeftButtonPressed;
     }
-    public void BotRightBtnPressed()
+    public bool BotRightBtnPressed()
     {
-
+        return touchInputSevenZones.BotRightButtonPressed;
     }
 }

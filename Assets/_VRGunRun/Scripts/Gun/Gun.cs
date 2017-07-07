@@ -171,12 +171,20 @@ public class Gun : MonoBehaviour
             }
         }
 
+        CheckLaserStatus();
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
     }
     //-------------------------------------------------------------------------------------------------
-
+    private void CheckLaserStatus()
+    {
+        if (sevenZonesGUI.BotLeftBtnPressed())
+        {
+            toggleLaserSight = !toggleLaserSight;
+        }
+        laserSight.gameObject.SetActive(toggleLaserSight);
+    }
 
     //-------------------------------------------------------------------------------------------------
     private void Shoot()

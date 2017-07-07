@@ -48,7 +48,88 @@ public class TouchInputSevenZones : MonoBehaviour
             if (touched)
             {
                 if (touchDistanceFromCenter < midButtonRadius && (touchPosition.x > midSectionMin && touchPosition.x < midSectionMax) && (touchPosition.y > midSectionMin && touchPosition.y < midSectionMax))
-                { return true; }
+                {
+                    Debug.Log("MidButtonHover");
+                    return true;
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool TopMidButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x > midSectionMin && touchPosition.x < midSectionMax) && (touchPosition.y > midSectionMax))
+                { Debug.Log("TopMidButtonHover"); return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool BotMidButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x > midSectionMin && touchPosition.x < midSectionMax) && (touchPosition.y < midSectionMin))
+                { Debug.Log("BotMidButtonHover"); return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool TopLeftButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x < midSectionMin) && (touchPosition.y > midSectionMax))
+                { Debug.Log("TopLeftButtonHover"); return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool TopRightButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x > midSectionMax) && (touchPosition.y > midSectionMax))
+                { Debug.Log("TopRightButtonHover"); return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool BotRightButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x > midSectionMax) && (touchPosition.y < midSectionMin))
+                { Debug.Log("BotRightButtonHover"); return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+    }
+    public bool BotLeftButtonHover
+    {
+        get
+        {
+            if (touched)
+            {
+                if (touchDistanceFromCenter > midButtonRadius && (touchPosition.x < midSectionMin) && (touchPosition.y < midSectionMin))
+                { Debug.Log("BotLeftButtonHover"); return true; }
                 else { return false; }
             }
             else { return false; }
@@ -71,19 +152,6 @@ public class TouchInputSevenZones : MonoBehaviour
             else { return false; }
         }
     }
-    public bool TopMidButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x > midSectionMin && touchPosition.x < midSectionMax) && (touchPosition.y > midSectionMin))
-                { return true; }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
     public bool TopMidButtonPressed
     {
         get
@@ -96,19 +164,6 @@ public class TouchInputSevenZones : MonoBehaviour
                     { return true; }
                     else { return false; }
                 }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
-    public bool BotMidButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x > midSectionMin && touchPosition.x < midSectionMax) && (touchPosition.y < midSectionMin))
-                { return true; }
                 else { return false; }
             }
             else { return false; }
@@ -131,19 +186,6 @@ public class TouchInputSevenZones : MonoBehaviour
             else { return false; }
         }
     }
-    public bool TopLeftButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x < midSectionMax) && (touchPosition.y > midSectionMax))
-                { return true; }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
     public bool TopLeftButtonPressed
     {
         get
@@ -156,19 +198,6 @@ public class TouchInputSevenZones : MonoBehaviour
                     { return true; }
                     else { return false; }
                 }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
-    public bool TopRightButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x > midSectionMax) && (touchPosition.y > midSectionMax))
-                { return true; }
                 else { return false; }
             }
             else { return false; }
@@ -191,19 +220,6 @@ public class TouchInputSevenZones : MonoBehaviour
             else { return false; }
         }
     }
-    public bool BotRightButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x < midSectionMax) && (touchPosition.y < midSectionMax))
-                { return true; }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
     public bool BotRightButtonPressed
     {
         get
@@ -216,19 +232,6 @@ public class TouchInputSevenZones : MonoBehaviour
                     { return true; }
                     else { return false; }
                 }
-                else { return false; }
-            }
-            else { return false; }
-        }
-    }
-    public bool BotLeftButtonHover
-    {
-        get
-        {
-            if (touched)
-            {
-                if (touchDistanceFromCenter > midSectionMax && (touchPosition.x > midSectionMax) && (touchPosition.y < midSectionMax))
-                { return true; }
                 else { return false; }
             }
             else { return false; }
