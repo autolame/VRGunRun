@@ -873,8 +873,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  controllerPrefab: {fileID: 1953346508812170, guid: 9e86bf6f6a02009478e406d11e83f8d1,
-    type: 2}
+  controllerPrefab: {fileID: 168468, guid: 4a1cbf4270a8f8740997a040623e6998, type: 2}
   showDebugText: 0
   spewDebugText: 0
 --- !u!114 &11405908
@@ -912,8 +911,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  controllerPrefab: {fileID: 1953346508812170, guid: 9e86bf6f6a02009478e406d11e83f8d1,
-    type: 2}
+  controllerPrefab: {fileID: 168468, guid: 4a1cbf4270a8f8740997a040623e6998, type: 2}
   showDebugText: 0
   spewDebugText: 0
 --- !u!114 &11450526
@@ -1450,6 +1448,9 @@ MonoBehaviour:
   hand1: {fileID: 11450312}
   hand2: {fileID: 11401046}
   activeItemIndex: 0
+  attachmentFlags: 9
+  cleanUpListHand1: []
+  cleanUpListHand2: []
   emptyHand: {fileID: 114003266071751614, guid: 4a1cbf4270a8f8740997a040623e6998,
     type: 2}
   gunList:

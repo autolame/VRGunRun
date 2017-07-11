@@ -2331,7 +2331,7 @@ MonoBehaviour:
   requireTriggerPressToTake: 0
   requireTriggerPressToReturn: 0
   showTriggerHint: 0
-  attachmentFlags: 15
+  attachmentFlags: -1
   attachmentPoint: 
   takeBackItem: 0
   acceptDifferentItems: 0
@@ -3066,7 +3066,7 @@ MonoBehaviour:
   requireTriggerPressToTake: 0
   requireTriggerPressToReturn: 0
   showTriggerHint: 0
-  attachmentFlags: 15
+  attachmentFlags: -1
   attachmentPoint: 
   takeBackItem: 0
   acceptDifferentItems: 0
@@ -3130,11 +3130,6 @@ Prefab:
     - target: {fileID: 447954, guid: 1659ea1e0cb4d35419d85d2aa07fe91d, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114032406404464204, guid: 1659ea1e0cb4d35419d85d2aa07fe91d,
-        type: 2}
-      propertyPath: attachmentFlags
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1659ea1e0cb4d35419d85d2aa07fe91d, type: 2}
@@ -6217,7 +6212,7 @@ MonoBehaviour:
   requireTriggerPressToTake: 0
   requireTriggerPressToReturn: 0
   showTriggerHint: 0
-  attachmentFlags: 15
+  attachmentFlags: -1
   attachmentPoint: 
   takeBackItem: 0
   acceptDifferentItems: 0

@@ -15,7 +15,7 @@ public class SevenZonesGUI : MonoBehaviour
     // TODO make hand directly linked to gui and playerController instead of communicating through GUI
 
     public Hand activeHand;
-    private GamePlayerManager gamePlayerManager;
+    private GamePlayManager gamePlayerManager;
     private TouchInputSevenZones touchInputSevenZones;
 
     public GameObject touchPointer;
@@ -26,7 +26,7 @@ public class SevenZonesGUI : MonoBehaviour
 
     private void Start()
     {
-        gamePlayerManager = FindObjectOfType<GamePlayerManager>();
+        gamePlayerManager = FindObjectOfType<GamePlayManager>();
         touchInputSevenZones = gameObject.AddComponent<TouchInputSevenZones>();
         touchInputSevenZones.hand = activeHand;
     }
