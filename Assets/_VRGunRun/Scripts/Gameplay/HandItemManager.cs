@@ -19,19 +19,23 @@ public class HandItemManager : MonoBehaviour
     {
         hand = GetComponent<Hand>();
     }
-    public void IncreaseItemIndex()
+    public void SwitchToNextGun()
     {
         if (ActiveItemIndex < GunList.Count - 1)
         { ActiveItemIndex++; }
         else
         { ActiveItemIndex = 0; }
+
+        SpawnItemAndAttachToHand();
     }
-    public void DecreaseItemIndex()
+    public void SwitchToPrevGun()
     {
         if (ActiveItemIndex > 0)
         { ActiveItemIndex--; }
         else
         { ActiveItemIndex = GunList.Count - 1; }
+
+        SpawnItemAndAttachToHand();
     }
 
     public void QueueForCleanUp(GameObject gameObject)
@@ -45,7 +49,6 @@ public class HandItemManager : MonoBehaviour
         {
             Destroy(go);
         }
-
         cleanUpListHand.Clear();
     }
 
@@ -55,7 +58,6 @@ public class HandItemManager : MonoBehaviour
         hand.AttachObject(spawnedItem.gameObject, AttachmentFlags, "");
         spawnedItem.gameObject.SetActive(true);
 
-        Debug.Log(hand.name + " : " + spawnedItem.name);
     }
 
     public void EmptyGunHand()
@@ -63,9 +65,6 @@ public class HandItemManager : MonoBehaviour
         var emptyItem = Instantiate(EmptyHand);
         hand.AttachObject(emptyItem.gameObject, AttachmentFlags, "");
         emptyItem.gameObject.SetActive(true);
-
-        Debug.Log(hand.name + " : empty hand");
-
         CleanHand();
     }
 

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float evasionRatio;
     [SerializeField] private float accuracyRatio;
+    [SerializeField] private float skillLevelIndex;
     [SerializeField] private string skillLevel;
 
 
@@ -81,13 +82,9 @@ public class GameManager : MonoBehaviour
             evasionRatio = (float)numberOfTargetDestroyed / (float)numberOfTargetLaunched;
             accuracyRatio = (float)numberOfShotHit / (float)numberOfShotFired;
 
-            if (accuracyRatio == 0)
+            if (accuracyRatio != 0)
             {
-                skillLevel = "evaluating";
-            }
-            else
-            {
-                float skillLevelIndex = (evasionRatio + accuracyRatio) / 2;
+                skillLevelIndex = (evasionRatio + accuracyRatio); // * 0.5f;
                 if (skillLevelIndex >= 1f)
                 {
                     skillLevel = "Cheater!";
@@ -105,19 +102,29 @@ public class GameManager : MonoBehaviour
                 }
                 else if (skillLevelIndex > 0.6f)
                 {
-                    skillLevel = "Skilled";
+                    skillLevel = "Adept";
                     return;
                 }
                 else if (skillLevelIndex > 0.4f)
                 {
-                    skillLevel = "Average";
+                    skillLevel = "Skilled";
                     return;
                 }
                 else if (skillLevelIndex > 0.2f)
                 {
+                    skillLevel = "Average";
+                    return;
+                }
+                else if (skillLevelIndex > 0f)
+                {
                     skillLevel = "Noob";
                     return;
                 }
+
+            }
+            else
+            {
+                skillLevel = "evaluating";
             }
         }
     }
