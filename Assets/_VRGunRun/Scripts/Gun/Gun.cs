@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
     public enum Handedness { Left, Right };
     public Handedness currentHandGuess = Handedness.Right;
     private Hand hand;
-    private GamePlayManager gameplayManager;
+    private HandItemManager handItemManager;
 
     [Header("GUI Setup")]
     Transform guiTransform;
@@ -84,12 +84,11 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
-        gameplayManager = FindObjectOfType<GamePlayManager>();
-
     }
     //-------------------------------------------------------------------------------------------------
     private void Start()
     {
+        handItemManager = hand.GetComponent<HandItemManager>();
         currentMagSize = defaultMagSize;
     }
     //-------------------------------------------------------------------------------------------------
@@ -180,24 +179,22 @@ public class Gun : MonoBehaviour
 
         if (sevenZonesGUI.TopRightBtnPressed())
         {
-            gameplayManager.QueueForCleanUp(gameObject, hand);
-            //gameplayManager.EmptyHand(hand);
-            gameplayManager.IncreaseItemIndex();
-            gameplayManager.SpawnItemAndAttachToHand(hand);
+            handItemManager.QueueForCleanUp(gameObject);
+            handItemManager.IncreaseItemIndex();
+            handItemManager.SpawnItemAndAttachToHand();
         }
 
         if (sevenZonesGUI.TopLeftBtnPressed())
         {
-            gameplayManager.QueueForCleanUp(gameObject, hand);
-            //gameplayManager.EmptyHand(hand);
-            gameplayManager.DecreaseItemIndex();
-            gameplayManager.SpawnItemAndAttachToHand(hand);
+            handItemManager.QueueForCleanUp(gameObject);
+            handItemManager.DecreaseItemIndex();
+            handItemManager.SpawnItemAndAttachToHand();
         }
 
         if (sevenZonesGUI.BotMidBtnPressed())
         {
-            gameplayManager.QueueForCleanUp(gameObject, hand);
-            gameplayManager.EmptyHand(hand);
+            handItemManager.QueueForCleanUp(gameObject);
+            handItemManager.EmptyGunHand();
         }
 
         UpdateTriggerRotation();

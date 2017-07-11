@@ -1447,9 +1447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand1: {fileID: 11450312}
   hand2: {fileID: 11401046}
-  activeItemIndex: 0
+  HandItemManager1: {fileID: 0}
+  HandItemManager2: {fileID: 0}
   attachmentFlags: 9
-  cleanUpListHand1: []
   cleanUpListHand2: []
   emptyHand: {fileID: 114003266071751614, guid: 4a1cbf4270a8f8740997a040623e6998,
     type: 2}
