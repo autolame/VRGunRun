@@ -8,7 +8,10 @@ public class HandItemManager : MonoBehaviour
     private Hand hand;
 
     public EmptyHand EmptyHand;
+    public Gun GunInHand;
+    public bool IsTeleporting;
     public List<Gun> GunList = new List<Gun>();
+
     public int ActiveItemIndex;
 
     public List<GameObject> cleanUpListHand = new List<GameObject>();

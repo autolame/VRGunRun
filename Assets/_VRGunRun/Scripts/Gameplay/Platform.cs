@@ -5,7 +5,8 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
 
-    public PlatformMoveButton Forward, Backward, Right, Left;
+    public List<PlatformMoveButton> MovementButtons = new List<PlatformMoveButton>();
+    public PlatformMoveButton LastActivatedButton;
     public float Speed;
 
     private void Update()
@@ -13,10 +14,18 @@ public class Platform : MonoBehaviour
         Vector3 position = transform.position;
         float moveSpeed = Time.deltaTime * Speed;
 
-        position.z = Forward.Activated ? position.z + moveSpeed : position.z;
-        position.z = Backward.Activated ? position.z - moveSpeed : position.z;
-        position.x = Right.Activated ? position.x + moveSpeed : position.x;
-        position.x = Left.Activated ? position.x - moveSpeed : position.x;
+        foreach (var button in MovementButtons)
+        {
+            if (button == LastActivatedButton)
+            {
+                position = position + button.MovementDirection * moveSpeed;
+            }
+            else
+            {
+                button.Activated = false;
+            }
+        }
+
 
         transform.position = position;
     }
