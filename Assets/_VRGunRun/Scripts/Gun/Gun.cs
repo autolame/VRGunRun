@@ -169,7 +169,7 @@ public class Gun : MonoBehaviour
 
         if (sevenZonesGUI.BotLeftBtnPressed())
         {
-            ToggleLaserSight();
+            toggleLaserSight = !toggleLaserSight;
         }
 
         if (sevenZonesGUI.BotRightBtnPressed())
@@ -196,15 +196,14 @@ public class Gun : MonoBehaviour
             handItemManager.QueueForCleanUp(gameObject);
             handItemManager.EmptyGunHand();
         }
-
+        CheckLaserSight();
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
     }
     //-------------------------------------------------------------------------------------------------
-    private void ToggleLaserSight()
+    private void CheckLaserSight()
     {
-        toggleLaserSight = !toggleLaserSight;
         laserSight.gameObject.SetActive(toggleLaserSight);
     }
     //-------------------------------------------------------------------------------------------------
