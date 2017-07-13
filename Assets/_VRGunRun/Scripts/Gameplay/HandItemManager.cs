@@ -22,23 +22,23 @@ public class HandItemManager : MonoBehaviour
     {
         hand = GetComponent<Hand>();
     }
-    public void SwitchToNextGun()
+    public void SwitchToNextGun(Hand hand)
     {
         if (ActiveItemIndex < GunList.Count - 1)
         { ActiveItemIndex++; }
         else
         { ActiveItemIndex = 0; }
 
-        SpawnItemAndAttachToHand();
+        SpawnItemAndAttachToHand(hand);
     }
-    public void SwitchToPrevGun()
+    public void SwitchToPrevGun(Hand hand)
     {
         if (ActiveItemIndex > 0)
         { ActiveItemIndex--; }
         else
         { ActiveItemIndex = GunList.Count - 1; }
 
-        SpawnItemAndAttachToHand();
+        SpawnItemAndAttachToHand(hand);
     }
 
     public void QueueForCleanUp(GameObject gameObject)
@@ -46,7 +46,7 @@ public class HandItemManager : MonoBehaviour
         cleanUpListHand.Add(gameObject);
     }
 
-    public void CleanHand()
+    public void CleanHand(Hand hand)
     {
         foreach (var go in cleanUpListHand)
         {
@@ -55,20 +55,20 @@ public class HandItemManager : MonoBehaviour
         cleanUpListHand.Clear();
     }
 
-    public void SpawnItemAndAttachToHand()
+    public void SpawnItemAndAttachToHand(Hand hand)
     {
         var spawnedItem = Instantiate(GunList[ActiveItemIndex]);
         hand.AttachObject(spawnedItem.gameObject, AttachmentFlags, "");
         spawnedItem.gameObject.SetActive(true);
-
+        // TODO check if cleanup is possible when switching weapon
     }
 
-    public void EmptyGunHand()
+    public void EmptyGunHand(Hand hand)
     {
         var emptyItem = Instantiate(EmptyHand);
         hand.AttachObject(emptyItem.gameObject, AttachmentFlags, "");
         emptyItem.gameObject.SetActive(true);
-        CleanHand();
+        CleanHand(hand);
     }
 
 

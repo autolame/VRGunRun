@@ -39,13 +39,18 @@ public class Gun : MonoBehaviour
     [Header("Functionality Setup")]
     private bool caseEjected = false;
     private bool magEjected = false;
+    private float recoilLerp = 0;
+    private float recoilVal = 0;
 
     [SerializeField] private GameObject loadedMagazine, ejectedMagazine;
     [SerializeField] private Transform muzzleTransform, cartridgeEjectTransform;
     [SerializeField] private Transform triggerTransform, triggerRestTransform, triggerActionTransform;
     [SerializeField] private Transform slideTransform, slideFeecbackTransform, slideOriginalTransform;
+    [SerializeField] private Transform modelTransform, recoilTransform, recoverTransform;
     [SerializeField] private float sliderSpeed = 1f;
     [SerializeField] private bool slideForwardWhenEmpty = false;
+    [SerializeField] private float recoilStrength = 0.4f;
+    [SerializeField] private float recoverSpeed = 2f;
 
     [SerializeField] private GunAmmoBullet bullet;
     [SerializeField] private GunAmmoCartridge bulletCase;
@@ -152,6 +157,7 @@ public class Gun : MonoBehaviour
                     isFiring = true;
                     Shoot();
                     fireReset = 1;
+                    Recoil(recoilStrength);
                 }
             }
         }
@@ -163,6 +169,7 @@ public class Gun : MonoBehaviour
                 {
                     isFiring = true;
                     Shoot();
+                    Recoil(recoilStrength);
                 }
             }
         }
@@ -180,26 +187,39 @@ public class Gun : MonoBehaviour
         if (sevenZonesGUI.TopRightBtnPressed())
         {
             handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.SwitchToNextGun();
-            handItemManager.SpawnItemAndAttachToHand();
+            handItemManager.SwitchToNextGun(hand);
         }
 
         if (sevenZonesGUI.TopLeftBtnPressed())
         {
             handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.SwitchToPrevGun();
-            handItemManager.SpawnItemAndAttachToHand();
+            handItemManager.SwitchToPrevGun(hand);
         }
 
         if (sevenZonesGUI.BotMidBtnPressed())
         {
             handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.EmptyGunHand();
+            handItemManager.EmptyGunHand(hand);
         }
+        RecoverFromRecoil(recoverSpeed);
         CheckLaserSight();
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
+    }
+    //-------------------------------------------------------------------------------------------------
+    private void Recoil(float strength)
+    {
+        recoilLerp += strength;
+        recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
+        modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
+    }
+    //-------------------------------------------------------------------------------------------------
+    private void RecoverFromRecoil(float strength)
+    {
+        recoilLerp -= Time.deltaTime * strength;
+        recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
+        modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
     }
     //-------------------------------------------------------------------------------------------------
     private void CheckLaserSight()

@@ -71,15 +71,13 @@ public class EmptyHand : MonoBehaviour
         if (sevenZonesGUI.TopRightBtnPressed())
         {
             handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.SwitchToNextGun();
-            handItemManager.SpawnItemAndAttachToHand();
+            handItemManager.SwitchToNextGun(hand);
         }
 
         if (sevenZonesGUI.TopLeftBtnPressed())
         {
             handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.SwitchToPrevGun();
-            handItemManager.SpawnItemAndAttachToHand();
+            handItemManager.SwitchToPrevGun(hand);
         }
     }
     //-------------------------------------------------------------------------------------------------
