@@ -409,6 +409,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4841853838447226}
   - component: {fileID: 137331391744697430}
+  - component: {fileID: 54651488894483958}
+  - component: {fileID: 136196127751445548}
   m_Layer: 0
   m_Name: WhiteClown
   m_TagString: Untagged
@@ -1993,6 +1995,21 @@ Transform:
   m_Father: {fileID: 4014021084238514}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54651488894483958
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364572313792816}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!95 &95162497347744524
 Animator:
   serializedVersion: 3
@@ -2022,10 +2039,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitPoint: 100
+  ragdollController: {fileID: 114993422120019316, guid: 65755a9ed1c8eab478a1cfb2659cff9b,
+    type: 2}
   HeadDamagePercent: 100
   TorsoDamagePercent: 20
   LegDamagePercent: 10
   ArmDamagePercent: 5
+  AnimState: 0
   Goal: {fileID: 0}
 --- !u!114 &114100846150656934
 MonoBehaviour:
@@ -2292,6 +2312,19 @@ CapsuleCollider:
   m_Height: 0.3
   m_Direction: 1
   m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!136 &136196127751445548
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364572313792816}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.01
+  m_Height: 0.01
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136201823153421574
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-
     public Enemy EnemyPrefab;
     public float SpawnFrequency = 1;  // spawn per second
     private float spawnTimer;
-
 
     private void Update()
     {
@@ -21,7 +19,6 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-
     public void SpawnEnemy(Enemy enemy)
     {
         var spawnedEnemy = Instantiate(EnemyPrefab);
@@ -30,6 +27,4 @@ public class EnemySpawn : MonoBehaviour
         spawnedEnemy.gameObject.SetActive(true);
         spawnedEnemy.MoveTowardsGoal();
     }
-
-
 }

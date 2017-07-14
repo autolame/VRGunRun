@@ -2684,13 +2684,15 @@ MonoBehaviour:
   recoverTransform: {fileID: 4793199672214730}
   sliderSpeed: 2
   slideForwardWhenEmpty: 1
+  useRecoilAnimation: 1
   recoilStrength: 0.4
   recoverSpeed: 2
+  autoEjectEmptyMag: 1
   bullet: {fileID: 114860256221338710, guid: ceef1b3c40008aa48a851cfea5a82f8e, type: 2}
   bulletCase: {fileID: 114824822646804898, guid: 7e646d5772b1bc247a764be7beb65cb4,
     type: 2}
   laserSight: {fileID: 114570277240726614}
-  toggleLaserSight: 0
+  toggleLaserSight: 1
   autoSpawnMagazineHand: 1
   magazineHandItemPackage: {fileID: 11450054, guid: 86ed369ecd9e9ec458186fa8656353b2,
     type: 2}

@@ -8,13 +8,18 @@ public class HandItemManager : MonoBehaviour
     private Hand hand;
 
     public EmptyHand EmptyHand;
+    public EmptyHand attachedEmptyHand;
+    public List<Gun> GunList = new List<Gun>();
+    public List<Gun> attachedGunList = new List<Gun>();
+
     public Gun GunInHand;
     public bool IsTeleporting;
-    public List<Gun> GunList = new List<Gun>();
+
+    private bool firstTimeSwitch = true;
 
     public int ActiveItemIndex;
 
-    public List<GameObject> cleanUpListHand = new List<GameObject>();
+    //public List<GameObject> cleanUpListHand = new List<GameObject>();
 
     public Hand.AttachmentFlags AttachmentFlags;
 
@@ -22,54 +27,97 @@ public class HandItemManager : MonoBehaviour
     {
         hand = GetComponent<Hand>();
     }
+
+    private void AttachItemsToHand()
+    {
+        if (firstTimeSwitch)
+        {
+            EmptyHand spawnedEmptyHand = Instantiate(EmptyHand);
+            hand.AttachObject(spawnedEmptyHand.gameObject, AttachmentFlags, "");
+            attachedEmptyHand = spawnedEmptyHand;
+            foreach (Gun gun in GunList)
+            {
+                Gun spawnedGun = Instantiate(gun);
+                hand.AttachObject(spawnedGun.gameObject, AttachmentFlags, "");
+                attachedGunList.Add(spawnedGun);
+            }
+            firstTimeSwitch = false;
+        }
+    }
     public void SwitchToNextGun(Hand hand)
     {
-        if (ActiveItemIndex < GunList.Count - 1)
+        AttachItemsToHand();
+
+        if (ActiveItemIndex < attachedGunList.Count - 1)
         { ActiveItemIndex++; }
         else
         { ActiveItemIndex = 0; }
 
-        SpawnItemAndAttachToHand(hand);
+        HideAttachedItems(hand);
+        attachedGunList[ActiveItemIndex].gameObject.SetActive(true);
+        //hand.AttachObject(attachedGunList[ActiveItemIndex].gameObject, AttachmentFlags, "");
+        //SpawnItemAndAttachToHand(hand);
     }
     public void SwitchToPrevGun(Hand hand)
     {
+        AttachItemsToHand();
+
         if (ActiveItemIndex > 0)
         { ActiveItemIndex--; }
         else
-        { ActiveItemIndex = GunList.Count - 1; }
+        { ActiveItemIndex = attachedGunList.Count - 1; }
 
-        SpawnItemAndAttachToHand(hand);
+        HideAttachedItems(hand);
+        attachedGunList[ActiveItemIndex].gameObject.SetActive(true);
+        //hand.AttachObject(attachedGunList[ActiveItemIndex].gameObject, AttachmentFlags, "");
+        //SpawnItemAndAttachToHand(hand);
     }
 
-    public void QueueForCleanUp(GameObject gameObject)
+    public void SwitchToEmptyHand(Hand hand)
     {
-        cleanUpListHand.Add(gameObject);
+        HideAttachedItems(hand);
+        attachedEmptyHand.gameObject.SetActive(true);
+        hand.AttachObject(attachedEmptyHand.gameObject, AttachmentFlags, "");
     }
 
-    public void CleanHand(Hand hand)
+    private void HideAttachedItems(Hand hand)
     {
-        foreach (var go in cleanUpListHand)
+        attachedEmptyHand.gameObject.SetActive(false);
+        foreach (Gun gun in attachedGunList)
         {
-            Destroy(go);
+            gun.gameObject.SetActive(false);
         }
-        cleanUpListHand.Clear();
     }
 
-    public void SpawnItemAndAttachToHand(Hand hand)
-    {
-        var spawnedItem = Instantiate(GunList[ActiveItemIndex]);
-        hand.AttachObject(spawnedItem.gameObject, AttachmentFlags, "");
-        spawnedItem.gameObject.SetActive(true);
-        // TODO check if cleanup is possible when switching weapon
-    }
+    //public void QueueForCleanUp(GameObject gameObject)
+    //{
+    //    cleanUpListHand.Add(gameObject);
+    //}
 
-    public void EmptyGunHand(Hand hand)
-    {
-        var emptyItem = Instantiate(EmptyHand);
-        hand.AttachObject(emptyItem.gameObject, AttachmentFlags, "");
-        emptyItem.gameObject.SetActive(true);
-        CleanHand(hand);
-    }
+    //public void CleanHand(Hand hand)
+    //{
+    //    foreach (var go in cleanUpListHand)
+    //    {
+    //        Destroy(go);
+    //    }
+    //    cleanUpListHand.Clear();
+    //}
+
+    //public void SpawnItemAndAttachToHand(Hand hand)
+    //{
+    //    var spawnedItem = Instantiate(GunList[ActiveItemIndex]);
+    //    hand.AttachObject(spawnedItem.gameObject, AttachmentFlags, "");
+    //    spawnedItem.gameObject.SetActive(true);
+    //    // TODO check if cleanup is possible when switching weapon
+    //}
+
+    //public void EmptyGunHand(Hand hand)
+    //{
+    //    var emptyItem = Instantiate(EmptyHand);
+    //    hand.AttachObject(emptyItem.gameObject, AttachmentFlags, "");
+    //    emptyItem.gameObject.SetActive(true);
+    //    CleanHand(hand);
+    //}
 
 
 }

@@ -14,13 +14,14 @@ public class EnemyGoal : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Enemy>())
+        if (collision.transform.root.gameObject.GetComponent<Enemy>())
         {
             HitPoints--;
             if (HitPoints < 1)
             {
                 GetComponent<Renderer>().material.color = Color.red;
             }
+            Destroy(collision.transform.root.gameObject);
         }
     }
 }

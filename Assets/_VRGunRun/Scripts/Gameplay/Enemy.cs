@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
 {
     public float HitPoint = 100f;
 
+    public EnemyRagdoll ragdollController;
+
     public float HeadDamagePercent = 100f;
     public float TorsoDamagePercent = 20f;
     public float LegDamagePercent = 10f;
@@ -29,13 +31,14 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        AnimState = Random.Range(0, 4);
+        AnimState = Random.Range(1, 4);
         animator.SetInteger("AnimState", AnimState);
     }
     private void Update()
     {
         if (IsDead)
         {
+            SpawnRagdoll();
             Destroy(gameObject);
         }
     }
@@ -75,6 +78,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SpawnRagdoll()
+    {
+        var ragdoll = Instantiate(ragdollController);
+        ragdoll.transform.position = transform.position;
+        ragdoll.transform.rotation = transform.rotation;
+        ragdoll.Enemy = this;
+        ragdoll.GetRagdollPose();
+        ragdoll.PoseRagdoll();
+        ragdoll.gameObject.AddComponent<DestroyObjectAfterSeconds>().TimeSecondToDestroy = 30f;
+        ragdoll.gameObject.SetActive(true);
+    }
 
 
 }

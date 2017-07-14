@@ -686,13 +686,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4120484234761316}
   - component: {fileID: 95999377432196216}
+  - component: {fileID: 114993422120019316}
   m_Layer: 0
   m_Name: ZombieRagdoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1654329087245514
 GameObject:
   m_ObjectHideFlags: 1
@@ -2183,7 +2184,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1604683026223024}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 95e498a52a2c21940acaf8bc26348549, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
@@ -2193,6 +2194,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114993422120019316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1604683026223024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a0d550f11c0bf4bae59cd9b458b4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 0}
+  EnemyBoneTransforms: []
+  RagdollBoneTransforms: []
 --- !u!135 &135892850823219556
 SphereCollider:
   m_ObjectHideFlags: 1

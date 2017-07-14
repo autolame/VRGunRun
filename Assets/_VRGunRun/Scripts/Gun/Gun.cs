@@ -49,8 +49,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform modelTransform, recoilTransform, recoverTransform;
     [SerializeField] private float sliderSpeed = 1f;
     [SerializeField] private bool slideForwardWhenEmpty = false;
+    [SerializeField] private bool useRecoilAnimation = false;
     [SerializeField] private float recoilStrength = 0.4f;
     [SerializeField] private float recoverSpeed = 2f;
+    [SerializeField] private bool autoEjectEmptyMag = false;
 
     [SerializeField] private GunAmmoBullet bullet;
     [SerializeField] private GunAmmoCartridge bulletCase;
@@ -186,21 +188,19 @@ public class Gun : MonoBehaviour
 
         if (sevenZonesGUI.TopRightBtnPressed())
         {
-            handItemManager.QueueForCleanUp(gameObject);
             handItemManager.SwitchToNextGun(hand);
         }
 
         if (sevenZonesGUI.TopLeftBtnPressed())
         {
-            handItemManager.QueueForCleanUp(gameObject);
             handItemManager.SwitchToPrevGun(hand);
         }
 
         if (sevenZonesGUI.BotMidBtnPressed())
         {
-            handItemManager.QueueForCleanUp(gameObject);
-            handItemManager.EmptyGunHand(hand);
+            handItemManager.SwitchToEmptyHand(hand);
         }
+        AutoEjectMag();
         RecoverFromRecoil(recoverSpeed);
         CheckLaserSight();
         UpdateTriggerRotation();
@@ -208,18 +208,39 @@ public class Gun : MonoBehaviour
         UpdateGUI();
     }
     //-------------------------------------------------------------------------------------------------
+    private void AutoEjectMag()
+    {
+        if (autoEjectEmptyMag)
+        {
+            if (MagazineIsEmpty())
+            {
+                if (!magEjected)
+                {
+                    EjectMagazine();
+                    magEjected = true;
+                }
+            }
+        }
+    }
+    //-------------------------------------------------------------------------------------------------
     private void Recoil(float strength)
     {
-        recoilLerp += strength;
-        recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
-        modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
+        if (useRecoilAnimation)
+        {
+            recoilLerp += strength;
+            recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
+            modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
+        }
     }
     //-------------------------------------------------------------------------------------------------
     private void RecoverFromRecoil(float strength)
     {
-        recoilLerp -= Time.deltaTime * strength;
-        recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
-        modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
+        if (useRecoilAnimation)
+        {
+            recoilLerp -= Time.deltaTime * strength;
+            recoilLerp = Mathf.Clamp(recoilLerp, 0, 1);
+            modelTransform.localPosition = Vector3.Lerp(recoverTransform.localPosition, recoilTransform.localPosition, recoilLerp);
+        }
     }
     //-------------------------------------------------------------------------------------------------
     private void CheckLaserSight()
