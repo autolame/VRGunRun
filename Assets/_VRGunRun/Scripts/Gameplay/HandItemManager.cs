@@ -8,7 +8,7 @@ public class HandItemManager : MonoBehaviour
     private Hand hand;
 
     public EmptyHand EmptyHand;
-    public Gun GunInHand;
+    public GameObject PrevItemInHand;
     public bool IsTeleporting;
     public List<Gun> GunList = new List<Gun>();
 
@@ -24,6 +24,10 @@ public class HandItemManager : MonoBehaviour
     }
     public void SwitchToNextGun(Hand hand)
     {
+        PrevItemInHand = hand.currentAttachedObject;
+        Debug.Log(PrevItemInHand.name);
+        //QueueForCleanUp(hand);
+
         if (ActiveItemIndex < GunList.Count - 1)
         { ActiveItemIndex++; }
         else
@@ -33,6 +37,10 @@ public class HandItemManager : MonoBehaviour
     }
     public void SwitchToPrevGun(Hand hand)
     {
+        PrevItemInHand = hand.currentAttachedObject;
+        Debug.Log(PrevItemInHand.name);
+        //QueueForCleanUp(hand);
+
         if (ActiveItemIndex > 0)
         { ActiveItemIndex--; }
         else
@@ -41,18 +49,24 @@ public class HandItemManager : MonoBehaviour
         SpawnItemAndAttachToHand(hand);
     }
 
-    public void QueueForCleanUp(GameObject gameObject)
+    public void QueueForCleanUp(Hand hand)
     {
-        cleanUpListHand.Add(gameObject);
+        cleanUpListHand.Add(hand.currentAttachedObject);
     }
 
     public void CleanHand(Hand hand)
     {
-        foreach (var go in cleanUpListHand)
-        {
-            Destroy(go);
-        }
-        cleanUpListHand.Clear();
+        Debug.Log("Destroying : " + PrevItemInHand.name);
+
+        Destroy(PrevItemInHand);
+
+        //foreach (var go in cleanUpListHand)
+        //{
+        //    Destroy(go);
+        //}
+        //cleanUpListHand.Clear();
+
+        //EmptyGunHand(hand);
     }
 
     public void SpawnItemAndAttachToHand(Hand hand)
@@ -61,6 +75,8 @@ public class HandItemManager : MonoBehaviour
         hand.AttachObject(spawnedItem.gameObject, AttachmentFlags, "");
         spawnedItem.gameObject.SetActive(true);
         // TODO check if cleanup is possible when switching weapon
+        spawnedItem.name = spawnedItem + hand.name;
+        CleanHand(hand);
     }
 
     public void EmptyGunHand(Hand hand)
@@ -68,7 +84,8 @@ public class HandItemManager : MonoBehaviour
         var emptyItem = Instantiate(EmptyHand);
         hand.AttachObject(emptyItem.gameObject, AttachmentFlags, "");
         emptyItem.gameObject.SetActive(true);
-        CleanHand(hand);
+        emptyItem.name = emptyItem + hand.name;
+        //CleanHand(hand);
     }
 
 
