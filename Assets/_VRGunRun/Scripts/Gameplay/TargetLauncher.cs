@@ -14,11 +14,19 @@ public class TargetLauncher : MonoBehaviour
     [SerializeField] TargetDummy targetDummy;
     [SerializeField] float maxlaunchRate = 10; // each second
     [SerializeField] float minlaunchRate = 5; // each second
-    [SerializeField] float maxLaunchForce = 50;
-    [SerializeField] float minLaunchForce = 10;
-    public float LaunchRate = 1;
+    [SerializeField] float maxLaunchForce = 50; // meter/sec
+    [SerializeField] float minLaunchForce = 10; // meter/sec
+    [SerializeField] float nextLaunchForce = 20;
+    [SerializeField] bool useHighArc = false;
+    [SerializeField] float launchYOffSet;
 
-    public Player player;
+    public float StartLaunchRate = 1;
+
+    public bool findLaunchVector;
+
+    float red, green, blue;
+
+    public Valve.VR.InteractionSystem.Player VRPlayer;
 
     float elapsedTime;
     public float ElapsedTime
@@ -26,82 +34,111 @@ public class TargetLauncher : MonoBehaviour
         get { return elapsedTime; }
         set { elapsedTime = value; }
     }
+    private void Start()
+    {
+        //VRPlayer = FindObjectOfType<GameManager>().VRPlayer;
+    }
 
     private void Update()
     {
         ElapsedTime += Time.deltaTime;
+        red = Random.Range(0, 2);
+        green = Random.Range(0, 2);
+        blue = Random.Range(0, 2);
 
-        if (ElapsedTime >= LaunchRate)
+        nextLaunchForce = Random.Range(minLaunchForce, maxLaunchForce);
+
+        if (ElapsedTime >= StartLaunchRate)
         {
             ElapsedTime = 0;
-            LaunchTarget();
-            LaunchRate = Random.Range(minlaunchRate, maxlaunchRate);
+            //LaunchTarget();
+            LaunchTargetTowardsPlayer();
+            StartLaunchRate = Random.Range(minlaunchRate, maxlaunchRate);
         }
     }
     void LaunchTarget()
     {
         TargetDummy newTarget = Instantiate(targetDummy);
         newTarget.gameObject.SetActive(true);
-        newTarget.transform.position = transform.position + Vector3.up * 3;
+        newTarget.transform.position = transform.position + Vector3.up * launchYOffSet; ;
 
         newTarget.gameObject.GetComponent<Rigidbody>().velocity = transform.up * Random.Range(minLaunchForce, maxLaunchForce);
         newTarget.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce));
-        newTarget.gameObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2));
+        newTarget.gameObject.GetComponent<MeshRenderer>().material.color = new Color(red, green, blue);
     }
-    // based on this formula http://en.wikipedia.org/wiki/Trajectory_of_a_projectile#Angle_required_to_hit_coordinate_.28x.2Cy.29
-    bool FindLaunchVector(Vector3 startPosition, Vector3 targetPosition, float launchSpeed, bool useHighArc, out Vector3 foundLaunchVector)
+    void LaunchTargetTowardsPlayer()
+    {
+        Vector3 playerPosition = VRPlayer.hmdTransform.position;
+
+        Vector3 launchPosition = transform.position;
+        Vector3 launchVector = Vector3.zero;
+
+        findLaunchVector = FindLaunchVector(launchPosition, playerPosition, nextLaunchForce, useHighArc, out launchVector);
+
+        if (findLaunchVector)
+        {
+            TargetDummy newTarget = Instantiate(targetDummy);
+            newTarget.transform.position = transform.position;
+            newTarget.gameObject.SetActive(true);
+
+            newTarget.gameObject.GetComponent<Rigidbody>().velocity = launchVector;
+            newTarget.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce));
+            newTarget.gameObject.GetComponent<MeshRenderer>().material.color = new Color(red, green, blue);
+        }
+    }
+
+    // launchVector formula http://en.wikipedia.org/wiki/Trajectory_of_a_projectile#Angle_required_to_hit_coordinate_.28x.2Cy.29
+    bool FindLaunchVector(Vector3 launchPosition, Vector3 targetPosition, float launchForce, bool useHighArc, out Vector3 foundLaunchVector)
     {
         foundLaunchVector = Vector3.zero;
 
-        Vector3 flightVector = targetPosition - startPosition;
-        Vector3 flightVectorHorizontal = new Vector3(flightVector.x, 0, flightVector.z);
-        Vector3 flightDirectionHorizontal = flightVectorHorizontal.normalized;
+        Vector3 flightVector = targetPosition - launchPosition;
+        Vector3 horizontalFlightVector = new Vector3(flightVector.x, 0, flightVector.z);
 
-        float flightHorizontalMag = flightVectorHorizontal.magnitude;
+        Vector3 horizontalFlightDirection = horizontalFlightVector.normalized;
+        float vertitalFlightMag = horizontalFlightVector.magnitude;
 
-        float flightVertical = flightVector.z;
+        float verticalFlight = flightVector.z;
 
-        float launchSpeedSQ = launchSpeed * launchSpeed;
+        float launchForceSQ = Mathf.Pow(launchForce, 2);
 
-        float gravity = -Physics.gravity.z;
+        float gravity = -Physics.gravity.y;
 
         // v^4 - g*(g*x^2 + 2*y*v^2)
-        float inTheSQ = launchSpeedSQ * launchSpeedSQ - gravity * ((gravity * flightHorizontalMag * flightHorizontalMag) + (2.0f * flightVertical * launchSpeedSQ));
-        // no solution of sqrt < 0
-        if (inTheSQ < 0.0f)
+        float inSqrt = Mathf.Pow(launchForceSQ, 2) - gravity * ((gravity * Mathf.Pow(vertitalFlightMag, 2)) + (2.0f * verticalFlight * launchForceSQ));
+        // no solution because sqrt < 0
+        if (inSqrt < 0.0f)
         {
             return false;
         }
+        // two solutions (quadratic formula) low arc and high arc
+        float sqrt = Mathf.Sqrt(inSqrt);
 
-        // if we got here, there are 2 solutions: one high-angle and one low-angle.
-        float sqrtPortion = Mathf.Sqrt(inTheSQ);
+        // [+] solution
+        float addTanSolution = (launchForceSQ + sqrt) / (gravity * vertitalFlightMag);
+        // [-] solution
+        float subTanSolution = (launchForceSQ - sqrt) / (gravity * vertitalFlightMag);
 
-        // addition [+] solition
-        float solutionAdd = (launchSpeedSQ + sqrtPortion) / (gravity * flightHorizontalMag);
-        // subtraction [-] solution
-        float solutionSub = (launchSpeedSQ - sqrtPortion) / (gravity * flightHorizontalMag);
+        // horizontal magnitude = sqrt( TossSpeedSq / (TanSolutionAngle^2 + 1) );
+        float horizontalSQMagA = launchForceSQ / (Mathf.Pow(addTanSolution, 2) + 1.0f);
+        float horizontalSQMagB = launchForceSQ / (Mathf.Pow(subTanSolution, 2) + 1.0f);
 
-        // magnitude of the horizontal direction = sqrt( TossSpeedSq / (TanSolutionAngle^2 + 1) );
-        float horSQMagAddSol = launchSpeedSQ / (solutionAdd * solutionAdd + 1.0f);
-        float horSQMagSubSol = launchSpeedSQ / (solutionSub * solutionSub + 1.0f);
+        bool launchVectorFound = false;
 
-        bool foundValidLaunchVector = false;
-
-        // choose low or high arc based on bool useHighArc
-        float chosenHorMagSQ = useHighArc ?
-            Mathf.Min(horSQMagAddSol, horSQMagSubSol) : Mathf.Max(horSQMagAddSol, horSQMagSubSol);
+        // decide on chosen arc
+        float chosenHorizontalMagnitudeSQ = useHighArc ? Mathf.Min(horizontalSQMagA, horizontalSQMagB) : Mathf.Max(horizontalSQMagA, horizontalSQMagB);
         float verticalSign = useHighArc ?
-            (horSQMagAddSol < horSQMagSubSol) ? Mathf.Sign(solutionAdd) : Mathf.Sign(solutionSub) :
-            (horSQMagAddSol > horSQMagSubSol) ? Mathf.Sign(solutionAdd) : Mathf.Sign(solutionSub);
+                           (horizontalSQMagA < horizontalSQMagB) ? Mathf.Sign(addTanSolution) : Mathf.Sign(subTanSolution) :
+                           (horizontalSQMagA > horizontalSQMagB) ? Mathf.Sign(addTanSolution) : Mathf.Sign(subTanSolution);
 
-        // warpping up calculations
-        float horizontalMag = Mathf.Sqrt(chosenHorMagSQ);
-        float verticalMag = Mathf.Sqrt(launchSpeedSQ - chosenHorMagSQ);
+        // wrapping up calculations
+        float MagXY = Mathf.Sqrt(chosenHorizontalMagnitudeSQ);
+        float MagZ = Mathf.Sqrt(launchForceSQ - chosenHorizontalMagnitudeSQ);       // pythagorean
 
-        foundLaunchVector = (flightDirectionHorizontal * horizontalMag) + (Vector3.up * verticalMag * verticalSign);
-        foundValidLaunchVector = true;
+        foundLaunchVector = (horizontalFlightDirection * MagXY) + (Vector3.up * MagZ * verticalSign);
+        launchVectorFound = true;
 
-        return foundValidLaunchVector;
+        return launchVectorFound;
     }
 }
 

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float skillLevelIndex;
     [SerializeField] private string skillLevel;
 
+    public Valve.VR.InteractionSystem.Player VRPlayer;
 
     public int NumberOfTargetLaunched
     {
@@ -144,9 +145,7 @@ public class GameManager : MonoBehaviour
         var launchers = FindObjectsOfType<TargetLauncher>();
         foreach (var launcher in launchers)
         {
-            launcher.LaunchRate = 10f;
+            launcher.StartLaunchRate = 10f;
         }
     }
-
-
 }
