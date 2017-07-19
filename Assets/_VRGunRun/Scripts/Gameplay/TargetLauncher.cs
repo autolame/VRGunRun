@@ -34,10 +34,6 @@ public class TargetLauncher : MonoBehaviour
         get { return elapsedTime; }
         set { elapsedTime = value; }
     }
-    private void Start()
-    {
-        //VRPlayer = FindObjectOfType<GameManager>().VRPlayer;
-    }
 
     private void Update()
     {

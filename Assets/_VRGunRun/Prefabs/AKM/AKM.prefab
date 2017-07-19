@@ -2692,7 +2692,7 @@ MonoBehaviour:
   bulletCase: {fileID: 114824822646804898, guid: 7e646d5772b1bc247a764be7beb65cb4,
     type: 2}
   laserSight: {fileID: 114570277240726614}
-  toggleLaserSight: 1
+  toggleLaserSight: 0
   autoSpawnMagazineHand: 1
   magazineHandItemPackage: {fileID: 11450054, guid: 86ed369ecd9e9ec458186fa8656353b2,
     type: 2}
