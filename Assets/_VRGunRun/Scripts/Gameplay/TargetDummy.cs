@@ -44,6 +44,7 @@ public class TargetDummy : MonoBehaviour
         {
             ParticleFX newFX = explosionFX.SpawnAt(transform.position, 10f);
             gameManager.NumberOfTargetDestroyed++;
+            FindObjectOfType<SlomoManager>().StartSlomoFor(5);
             Destroy(gameObject);
         }
     }

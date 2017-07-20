@@ -584,6 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22121783}
   - component: {fileID: 22121784}
+  - component: {fileID: 22121785}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -626,6 +627,21 @@ MonoBehaviour:
   skillLevelIndex: 0
   skillLevel: try harder!
   VRPlayer: {fileID: 0}
+--- !u!114 &22121785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 22121782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b195e4f01400b746a858e03454a39a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInSlomo: 0
+  SlomoTimeFactor: 0
+  CurrentTimeFactor: 0
+  SlomoDuration: 3
 --- !u!4 &23570293 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000014232837180, guid: e397ab88678e07a45b3e5483c391a927,
