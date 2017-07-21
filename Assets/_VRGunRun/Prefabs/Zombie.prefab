@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitPoint: 100
-  ragdollController: {fileID: 114993422120019316, guid: 65755a9ed1c8eab478a1cfb2659cff9b,
+  RagdollController: {fileID: 114543095854650418, guid: 36c9d79662770af4bac0794a00421f46,
     type: 2}
   HeadDamagePercent: 100
   TorsoDamagePercent: 20
