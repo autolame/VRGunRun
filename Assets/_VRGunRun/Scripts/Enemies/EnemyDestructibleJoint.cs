@@ -50,7 +50,8 @@ public class EnemyDestructibleJoint : MonoBehaviour
         foreach (var child in GetComponentsInChildren<Transform>())
         {
             child.SetParent(transform.parent);
-            child.gameObject.AddComponent<Rigidbody>();
+            if (!child.GetComponent<Rigidbody>())
+                child.gameObject.AddComponent<Rigidbody>();
         }
     }
 }

@@ -15,11 +15,12 @@ public class EnemyArmorPlate : MonoBehaviour
 
             if (IsDestroyed)
             {
-                if (!gameObject.GetComponent<Rigidbody>())
+                var rb = gameObject.AddComponent<Rigidbody>();
+                if (!rb)
                 {
-                    gameObject.AddComponent<Rigidbody>();
+                    rb = gameObject.AddComponent<Rigidbody>();
                 }
-                gameObject.AddComponent<Rigidbody>().velocity = Vector3.up;
+                rb.velocity = Vector3.up;
                 gameObject.transform.parent = null;
                 Destroy(gameObject, 10f);
                 Destroy(this);
