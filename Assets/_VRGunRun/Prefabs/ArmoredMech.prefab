@@ -4204,6 +4204,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartHitPointRaw: 3000
   StartMovementSpeedRaw: 1
+  currentHitPointPercentage: 0
+  currentMovementSpeedPercentage: 0
+  currentHitPointRaw: 0
+  currentMovementSpeedRaw: 0
   Goal: {fileID: 0}
   NavAgent: {fileID: 0}
 --- !u!114 &114637871683749280
