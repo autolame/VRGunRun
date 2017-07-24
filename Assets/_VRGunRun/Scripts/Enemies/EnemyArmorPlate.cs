@@ -12,13 +12,18 @@ public class EnemyArmorPlate : MonoBehaviour
         {
             float hitDamage = collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
             HitPoints -= hitDamage;
-        }
 
-        if (IsDestroyed)
-        {
-            gameObject.transform.parent = null;
-            gameObject.AddComponent<Rigidbody>().velocity = Vector3.up;
-            Destroy(gameObject, 10f);
+            if (IsDestroyed)
+            {
+                if (!gameObject.GetComponent<Rigidbody>())
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                }
+                gameObject.AddComponent<Rigidbody>().velocity = Vector3.up;
+                gameObject.transform.parent = null;
+                Destroy(gameObject, 10f);
+                Destroy(this);
+            }
         }
     }
 

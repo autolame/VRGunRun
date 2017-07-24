@@ -2276,7 +2276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522a29cbc14ba2344912676fe1707bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartHitPointRaw: 1500
+  StartHitPointRaw: 3000
   StartMovementSpeedRaw: 1
   Goal: {fileID: 0}
   NavAgent: {fileID: 0}

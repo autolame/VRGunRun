@@ -39,20 +39,20 @@ public class EnemyZombie : Enemy
         switch (hitType)
         {
             case EnemyZombieHitZone.HitZoneType.Head:
-                DamageRawHitPoint(velocity * HeadDamagePercent);
-                //DamagePercentageHitPoint(HeadDamagePercent + velocity / 100);
+                //DamageRawHitPoint(velocity / 100 * HeadDamagePercent);
+                DamagePercentageHitPoint(HeadDamagePercent);
                 break;
             case EnemyZombieHitZone.HitZoneType.Torso:
-                DamageRawHitPoint(velocity * TorsoDamagePercent);
-                //DamagePercentageHitPoint(TorsoDamagePercent + velocity / 100);
+                DamageRawHitPoint(velocity / 100 * TorsoDamagePercent);
+                //DamagePercentageHitPoint(TorsoDamagePercent);
                 break;
             case EnemyZombieHitZone.HitZoneType.Leg:
-                DamageRawHitPoint(velocity * LegDamagePercent);
-                //DamagePercentageHitPoint(LegDamagePercent + velocity / 100);
+                DamageRawHitPoint(velocity / 100 * LegDamagePercent);
+                //DamagePercentageHitPoint(LegDamagePercent);
                 break;
             case EnemyZombieHitZone.HitZoneType.Arm:
-                DamageRawHitPoint(velocity * ArmDamagePercent);
-                //DamagePercentageHitPoint(ArmDamagePercent + velocity / 100);
+                DamageRawHitPoint(velocity / 100 * ArmDamagePercent);
+                //DamagePercentageHitPoint(ArmDamagePercent);
                 break;
         }
     }

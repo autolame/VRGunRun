@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class EnemyMech : Enemy
 {
+    private void Awake()
+    {
+        base.Awake();
+    }
+
     private void Update()
     {
         if (IsDestroyed)
         {
-            foreach (var child in GetComponentsInChildren<GameObject>())
+            foreach (var child in GetComponentsInChildren<Transform>())
             {
-                Destroy(gameObject, 10);
-                child.gameObject.AddComponent<Rigidbody>();
-                child.transform.SetParent(null);
+                if (!child.gameObject.GetComponent<Rigidbody>())
+                {
+                    child.gameObject.AddComponent<Rigidbody>();
+                }
                 Destroy(child.gameObject, 10);
+                child.SetParent(null);
             }
+            Destroy(gameObject, 30f);
         }
     }
 }

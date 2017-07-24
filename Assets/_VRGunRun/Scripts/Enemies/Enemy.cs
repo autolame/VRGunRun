@@ -8,10 +8,10 @@ public class Enemy : MonoBehaviour
     public float StartHitPointRaw = 100f; // default hp for this enemy
     public float StartMovementSpeedRaw = 1f;  // default movement speed for this enemy
 
-    float currentHitPointPercentage;
-    float currentMovementSpeedPercentage;
-    float currentHitPointRaw;
-    float currentMovementSpeedRaw;
+    public float currentHitPointPercentage;
+    public float currentMovementSpeedPercentage;
+    public float currentHitPointRaw;
+    public float currentMovementSpeedRaw;
 
     public EnemyGoal Goal;
     public NavMeshAgent NavAgent;
@@ -49,6 +49,10 @@ public class Enemy : MonoBehaviour
 
         NavAgent = GetComponent<NavMeshAgent>();
     }
+    private void Start()
+    {
+        MoveTowardsGoal();
+    }
     public void MoveTowardsGoal()
     {
         NavAgent.destination = Goal.Position;
@@ -61,21 +65,21 @@ public class Enemy : MonoBehaviour
     public void DamageRawHitPoint(float damage)
     {
         currentHitPointRaw -= damage;
-        //StatusUpdate();
+        StatusUpdate();
     }
     public void DamageRawMovementSpeed(float slow)
     {
         currentMovementSpeedRaw -= slow;
-        //StatusUpdate();
+        StatusUpdate();
     }
     public void DamagePercentageHitPoint(float percent)
     {
         DamageRawHitPoint(percent * (StartHitPointRaw / 100f));
-        //StatusUpdate();
+        StatusUpdate();
     }
     public void DamagePercentageMovementSpeed(float slowPercent)
     {
         DamageRawMovementSpeed(slowPercent * (StartMovementSpeedRaw / 100f));
-        //StatusUpdate();
+        StatusUpdate();
     }
 }
