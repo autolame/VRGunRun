@@ -206,6 +206,19 @@ public class Gun : MonoBehaviour
         UpdateTriggerRotation();
         SlideFeedback(sliderSpeed);
         UpdateGUI();
+        CastDroneReaction();
+    }
+    //-------------------------------------------------------------------------------------------------
+    private void CastDroneReaction()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(muzzleTransform.position, muzzleTransform.forward, out hit))
+        {
+            if (hit.transform.gameObject.GetComponent<EnemyDrone>())
+            {
+                hit.transform.gameObject.GetComponent<EnemyDrone>().IsAimedUpon = true;
+            }
+        }
     }
     //-------------------------------------------------------------------------------------------------
     private void AutoEjectMag()

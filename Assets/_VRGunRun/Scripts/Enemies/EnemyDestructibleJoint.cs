@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDestructibleJoint : MonoBehaviour
 {
-    public EnemyMech HostEnemy;
+    public Enemy HostEnemy;
 
     public float ZoneHealth = 1000; // this zones health
     public float HostHealthPercentage = 50; // if destroyed, host will be damaged by this percentage
@@ -21,7 +21,7 @@ public class EnemyDestructibleJoint : MonoBehaviour
 
     private void Awake()
     {
-        HostEnemy = transform.root.GetComponent<EnemyMech>();
+        HostEnemy = transform.root.GetComponent<Enemy>();
     }
     private void OnCollisionEnter(Collision collision)
     {

@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114690578209288518}
   - component: {fileID: 136325451172832724}
   - component: {fileID: 65152563429926770}
+  - component: {fileID: 114477460031604156}
   m_Layer: 0
   m_Name: EnemyPlane
   m_TagString: Untagged
@@ -264,6 +265,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.45, y: 0.52, z: 1.84}
   m_Center: {x: 0, y: 0.57, z: 0}
+--- !u!114 &114477460031604156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321873007887546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65deaca4cae1d1747b86ec3cc5c18770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 114456930361955718, guid: a69b125bbe617974aabd21455ca02903, type: 2}
+  Goal: {fileID: 0}
+  SpawnFrequency: 1
 --- !u!114 &114690578209288518
 MonoBehaviour:
   m_ObjectHideFlags: 1

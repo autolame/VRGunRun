@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMechSpawn : MonoBehaviour {
-
-    public EnemyMech Prefab;
+public class EnemySpawn : MonoBehaviour
+{
+    public Enemy Prefab;
     public EnemyGoal Goal;
     public float SpawnFrequency = 1;  // spawn per second
     private float spawnTimer;
@@ -20,7 +20,7 @@ public class EnemyMechSpawn : MonoBehaviour {
         }
     }
 
-    public void SpawnEnemy(EnemyMech enemy)
+    public void SpawnEnemy(Enemy enemy)
     {
         var spawnedEnemy = Instantiate(Prefab);
         spawnedEnemy.gameObject.SetActive(false);

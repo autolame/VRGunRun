@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 
     public EnemyGoal Goal;
     public NavMeshAgent NavAgent;
+    public bool UseNavMesh = true;
     public bool IsDestroyed
     {
         get
@@ -46,8 +47,8 @@ public class Enemy : MonoBehaviour
     {
         currentHitPointRaw = StartHitPointRaw;
         currentHitPointPercentage = StartMovementSpeedRaw;
-
-        NavAgent = GetComponent<NavMeshAgent>();
+        if (UseNavMesh)
+            NavAgent = GetComponent<NavMeshAgent>();
     }
     private void Start()
     {
@@ -55,7 +56,8 @@ public class Enemy : MonoBehaviour
     }
     public void MoveTowardsGoal()
     {
-        NavAgent.destination = Goal.Position;
+        if (UseNavMesh)
+            NavAgent.destination = Goal.Position;
     }
     protected void StatusUpdate()
     {

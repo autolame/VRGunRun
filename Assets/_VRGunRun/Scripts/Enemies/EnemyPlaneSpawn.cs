@@ -12,7 +12,4 @@ public class EnemyPlaneSpawn : MonoBehaviour
     {
         TimeUntilSpawn += Time.deltaTime;
     }
-
-
-
 }

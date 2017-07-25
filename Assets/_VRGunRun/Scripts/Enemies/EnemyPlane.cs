@@ -11,6 +11,15 @@ public class EnemyPlane : MonoBehaviour
     public Transform TargetTransform;
     public float MoveSpeed = 1;
 
+    public EnemySpawn droneSpawn;
+    public Valve.VR.InteractionSystem.Player player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<Valve.VR.InteractionSystem.Player>();
+        droneSpawn = GetComponent<EnemySpawn>();
+        droneSpawn.Goal = player.hmdTransforms[0].GetComponent<EnemyGoal>();
+    }
     public void MoveTowardsTarget(Vector3 targetPosition)
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, MoveSpeed);
