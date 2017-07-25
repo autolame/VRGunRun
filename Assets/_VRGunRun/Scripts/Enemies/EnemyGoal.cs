@@ -14,7 +14,7 @@ public class EnemyGoal : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.root.gameObject.GetComponent<EnemyZombie>())
+        if (collision.transform.root.gameObject.GetComponent<Enemy>())
         {
             HitPoints--;
             if (HitPoints < 1)

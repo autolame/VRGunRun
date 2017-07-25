@@ -646,10 +646,14 @@ MonoBehaviour:
   IsAimedUpon: 0
   EvasionReactionTime: 0.5
   EvasionSpeed: 0.2
-  IdleTime: 3
+  IdleTime: 5
   MinDistanceToTarget: 10
   MaxDistanceToTarget: 20
   directionFromPlayerToEvadeTo: {x: 0, y: 0, z: 0}
+  elapsedTime: 0
+  timeIdled: 0
+  isEvading: 0
+  isIdle: 0
 --- !u!114 &114492519180262124
 MonoBehaviour:
   m_ObjectHideFlags: 1
