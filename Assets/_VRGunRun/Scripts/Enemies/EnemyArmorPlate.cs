@@ -15,7 +15,7 @@ public class EnemyArmorPlate : MonoBehaviour
 
             if (IsDestroyed)
             {
-                var rb = gameObject.AddComponent<Rigidbody>();
+                var rb = gameObject.GetComponent<Rigidbody>();
                 if (!rb)
                 {
                     rb = gameObject.AddComponent<Rigidbody>();

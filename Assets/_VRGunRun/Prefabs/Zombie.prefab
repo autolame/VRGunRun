@@ -2276,8 +2276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522a29cbc14ba2344912676fe1707bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartHitPointRaw: 3000
+  StartHitPointRaw: 1000
   StartMovementSpeedRaw: 1
+  currentHitPointPercentage: 0
+  currentMovementSpeedPercentage: 0
+  currentHitPointRaw: 0
+  currentMovementSpeedRaw: 0
   Goal: {fileID: 0}
   NavAgent: {fileID: 0}
   RagdollController: {fileID: 114543095854650418, guid: 36c9d79662770af4bac0794a00421f46,

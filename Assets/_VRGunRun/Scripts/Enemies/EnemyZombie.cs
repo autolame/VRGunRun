@@ -36,6 +36,8 @@ public class EnemyZombie : Enemy
 
     public void GotHitWith(float velocity, EnemyZombieHitZone.HitZoneType hitType)
     {
+
+        // TODO make damage more uniformly
         switch (hitType)
         {
             case EnemyZombieHitZone.HitZoneType.Head:
