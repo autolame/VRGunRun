@@ -646,8 +646,8 @@ MonoBehaviour:
   IsAimedUpon: 0
   EvasionReactionTime: 0.5
   EvasionSpeed: 0.2
-  MinDistanceToTarget: 5
-  MaxDistanceToTarget: 15
+  MinDistanceToTarget: 10
+  MaxDistanceToTarget: 20
   directionFromPlayerToEvadeTo: {x: 0, y: 0, z: 0}
 --- !u!114 &114492519180262124
 MonoBehaviour:

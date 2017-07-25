@@ -278,7 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 114456930361955718, guid: a69b125bbe617974aabd21455ca02903, type: 2}
   Goal: {fileID: 0}
-  SpawnFrequency: 1
+  SpawnFrequency: 3
 --- !u!114 &114690578209288518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,6 +295,8 @@ MonoBehaviour:
     type: 2}
   TargetTransform: {fileID: 0}
   MoveSpeed: 1
+  droneSpawn: {fileID: 0}
+  player: {fileID: 0}
 --- !u!136 &136325451172832724
 CapsuleCollider:
   m_ObjectHideFlags: 1

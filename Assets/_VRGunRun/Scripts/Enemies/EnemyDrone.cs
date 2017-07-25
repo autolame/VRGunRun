@@ -7,6 +7,7 @@ public class EnemyDrone : Enemy
     public bool IsAimedUpon = false; // set from player gun
     public float EvasionReactionTime = 1f; // seconds
     public float EvasionSpeed = 0.1f;
+    public float IdleTime = 3f; // seconds
 
     public float MinDistanceToTarget = 5f;
     public float MaxDistanceToTarget = 20f;
@@ -14,8 +15,10 @@ public class EnemyDrone : Enemy
     public Vector3 directionFromPlayerToEvadeTo;
     float rangeToEvadeTo;
 
-    float timeUntilEvasion;
+    float elapsedTime;
+    float timeIdled;
     bool isEvading = false;
+    bool isIdle = false;
 
 
     private void Awake()
@@ -30,13 +33,21 @@ public class EnemyDrone : Enemy
     private void Update()
     {
         transform.LookAt(Goal.transform);
+        if (isIdle)
+        {
+            timeIdled += Time.deltaTime;
+            if (timeIdled > IdleTime)
+            {
+                isIdle = false;
+            }
+        }
 
         if (IsAimedUpon && !isEvading)
         {
-            timeUntilEvasion += Time.deltaTime;
-            if (timeUntilEvasion > EvasionReactionTime)
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > EvasionReactionTime)
             {
-                timeUntilEvasion = 0f;
+                elapsedTime = 0f;
                 isEvading = true;
                 IsAimedUpon = false;
                 directionFromPlayerToEvadeTo = new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 0.5f), Random.Range(-1f, 1f));
@@ -44,7 +55,7 @@ public class EnemyDrone : Enemy
             }
         }
 
-        if (isEvading)
+        if (isEvading || isIdle)
         {
             EvadeToNewPosition(EvasionSpeed);
         }
@@ -74,6 +85,8 @@ public class EnemyDrone : Enemy
         if (transform.position == positionToMoveTo)
         {
             isEvading = false;
+            isIdle = true;
+            timeIdled = 0;
         }
     }
 }
