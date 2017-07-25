@@ -575,8 +575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
-  HostHealthPercentage: 100
+  ZoneHealth: 300
+  HostHealthPercentage: 30
   HostMovementSpeedPercentage: 100
 --- !u!114 &114088625582431308
 MonoBehaviour:
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 300
+  ZoneHealth: 1000
   HostHealthPercentage: 100
   HostMovementSpeedPercentage: 100
 --- !u!114 &114094606264980008
@@ -605,8 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
-  HostHealthPercentage: 100
+  ZoneHealth: 300
+  HostHealthPercentage: 30
   HostMovementSpeedPercentage: 100
 --- !u!114 &114254628113314556
 MonoBehaviour:
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
+  ZoneHealth: 50
   HostHealthPercentage: 100
   HostMovementSpeedPercentage: 100
 --- !u!114 &114456930361955718
@@ -646,6 +646,7 @@ MonoBehaviour:
   IsAimedUpon: 0
   EvasionReactionTime: 0.5
   EvasionSpeed: 0.2
+  IdleTime: 3
   MinDistanceToTarget: 10
   MaxDistanceToTarget: 20
   directionFromPlayerToEvadeTo: {x: 0, y: 0, z: 0}
@@ -661,8 +662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
-  HostHealthPercentage: 100
+  ZoneHealth: 300
+  HostHealthPercentage: 30
   HostMovementSpeedPercentage: 100
 --- !u!114 &114540948860063360
 MonoBehaviour:
@@ -676,8 +677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
-  HostHealthPercentage: 100
+  ZoneHealth: 300
+  HostHealthPercentage: 30
   HostMovementSpeedPercentage: 100
 --- !u!114 &114952472329485536
 MonoBehaviour:
@@ -691,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 100
+  ZoneHealth: 1000
   HostHealthPercentage: 100
   HostMovementSpeedPercentage: 100
 --- !u!136 &136221404544608424

@@ -7,7 +7,7 @@ public class EnemyDrone : Enemy
     public bool IsAimedUpon = false; // set from player gun
     public float EvasionReactionTime = 1f; // seconds
     public float EvasionSpeed = 0.1f;
-    public float IdleTime = 3f; // seconds
+    public float IdleTime = 5f; // seconds
 
     public float MinDistanceToTarget = 5f;
     public float MaxDistanceToTarget = 20f;
@@ -15,10 +15,10 @@ public class EnemyDrone : Enemy
     public Vector3 directionFromPlayerToEvadeTo;
     float rangeToEvadeTo;
 
-    float elapsedTime;
-    float timeIdled;
-    bool isEvading = false;
-    bool isIdle = false;
+    public float elapsedTime;
+    public float timeIdled;
+    public bool isEvading = false;
+    public bool isIdle = false;
 
 
     private void Awake()
@@ -39,6 +39,7 @@ public class EnemyDrone : Enemy
             if (timeIdled > IdleTime)
             {
                 isIdle = false;
+                IsAimedUpon = true;
             }
         }
 
@@ -55,7 +56,7 @@ public class EnemyDrone : Enemy
             }
         }
 
-        if (isEvading || isIdle)
+        if (isEvading || !isIdle)
         {
             EvadeToNewPosition(EvasionSpeed);
         }
