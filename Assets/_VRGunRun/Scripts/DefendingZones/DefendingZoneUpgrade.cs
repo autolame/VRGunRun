@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefendingZoneUpgrade : MonoBehaviour {
+public class DefendingZoneUpgrade : DefendingZone {
 
 	// Use this for initialization
 	void Start () {

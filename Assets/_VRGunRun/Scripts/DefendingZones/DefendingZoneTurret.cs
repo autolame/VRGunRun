@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefendingZoneTurret : MonoBehaviour {
+public class DefendingZoneTurret : DefendingZone {
 
 	// Use this for initialization
 	void Start () {
