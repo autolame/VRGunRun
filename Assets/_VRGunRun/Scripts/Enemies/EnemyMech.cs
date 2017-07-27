@@ -19,8 +19,8 @@ public class EnemyMech : Enemy
                 {
                     child.gameObject.AddComponent<Rigidbody>();
                 }
-                Destroy(child.gameObject, 10);
                 child.SetParent(null);
+                Destroy(child.gameObject, 10);
             }
             Destroy(gameObject, 30f);
         }

@@ -36,7 +36,7 @@ public class EnemyPlane : MonoBehaviour
         }
         else
         {
-            explosionFX.SpawnAt(transform, 5f);
+            explosionFX.SpawnAtTransform(transform, 5f);
             FindObjectOfType<SlomoManager>().StartSlomoFor(10);
             Destroy(gameObject);
         }

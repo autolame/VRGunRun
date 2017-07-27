@@ -12,7 +12,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private GunAmmoBullet projectile;
     [SerializeField] private Transform muzzle;
     [SerializeField] private float muzzleVelocity = 1500f;
-    [SerializeField] private float fireRate = 600; // rounds per minute
+    [SerializeField] private float fireRate = 10; // rounds per second
     [SerializeField] private AudioSource shotSound;
     [SerializeField] private ParticleFX muzzleFlash;
 
@@ -25,33 +25,40 @@ public class Turret : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<EnemyDrone>())
+        AddEnemyToList(other.transform.root.gameObject);
+        RemoveDestroyedEnemiesFrom(DronesInRange);
+        GetNearestEnemy(DronesInRange);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        RemoveDestroyedEnemiesFrom(DronesInRange);
+        var drone = other.transform.root.GetComponent<EnemyDrone>();
+        if (drone)
         {
-            var drone = other.GetComponent<EnemyDrone>();
+            DronesInRange.Remove(drone);
+        }
+        GetNearestEnemy(DronesInRange);
+    }
+    void AddEnemyToList(GameObject enemy)
+    {
+        var drone = enemy.GetComponent<EnemyDrone>();
+        if (drone)
+        {
             DronesInRange.Add(drone);
         }
     }
-
-    private void OnTriggerStay(Collider other)
+    void GetNearestEnemy(List<EnemyDrone> enemyList)
     {
-        // remove destroyed drones
-        for (int i = DronesInRange.Count - 1; i >= 0; i--)
-        {
-            if (DronesInRange[i] == null)
-            {
-                DronesInRange.Remove(DronesInRange[i]);
-            }
-        }
         // get nearest enemy
-        foreach (var drone in DronesInRange)
+        foreach (var enemy in enemyList)
         {
-            if (drone)
+            if (enemy)
             {
-                var droneDistance = (turretHead.position - drone.transform.position).sqrMagnitude;
+                var droneDistance = (turretHead.position - enemy.transform.position).sqrMagnitude;
                 if (droneDistance < nearestEnemyDistance)
                 {
                     nearestEnemyDistance = droneDistance;
-                    nearestEnemy = drone;
+                    nearestEnemy = enemy;
                 }
                 else
                 {
@@ -59,47 +66,23 @@ public class Turret : MonoBehaviour
                 }
             }
         }
-        // shoot nearest enemy
-        if (nearestEnemy)
+    }
+    void RemoveDestroyedEnemiesFrom(List<EnemyDrone> enemyList)
+    {
+        // remove destroyed drones
+        for (int i = enemyList.Count - 1; i >= 0; i--)
         {
-            SmoothLookAtPosition(nearestEnemy.transform.position, RotationSpeed);
-            bool onEnemy = Physics.Raycast(turretHead.position, turretHead.forward, out raycastHit);
-            if (onEnemy)
+            if (enemyList[i] == null)
             {
-                if (raycastHit.transform.GetComponent<EnemyDrone>())
-                {
-                    timeToNextShot += Time.deltaTime;
-                    if (timeToNextShot > 60 / fireRate)
-                    {
-                        Shoot();
-                        timeToNextShot = 0;
-                    }
-                }
+                enemyList.Remove(enemyList[i]);
             }
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<EnemyDrone>())
-        {
-            var drone = other.GetComponent<EnemyDrone>();
-            DronesInRange.Remove(drone);
-        }
-    }
-
     void SmoothLookAtPosition(Vector3 position, float speed)
     {
         var targetRotation = Quaternion.LookRotation(position - turretHead.position);
         turretHead.rotation = Quaternion.Slerp(turretHead.rotation, targetRotation, speed * Time.deltaTime);
     }
-
-    EnemyDrone NearestEnemy(EnemyDrone enemy)
-    {
-        var enemyDistance = Vector3.Distance(turretHead.position, enemy.transform.position);
-        return enemy;
-    }
-
     void Shoot()
     {
         // TODO shoot at target!
@@ -110,9 +93,31 @@ public class Turret : MonoBehaviour
         }
         if (muzzleFlash)
         {
-            var flash = muzzleFlash.SpawnAt(muzzle, 1f);
+            var flash = muzzleFlash.SpawnAtTransform(muzzle, 1f);
             flash.gameObject.SetActive(true);
             flash.GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+    private void Update()
+    {
+        timeToNextShot += Time.deltaTime;
+        // shoot nearest enemy
+        if (nearestEnemy)
+        {
+            SmoothLookAtPosition(nearestEnemy.transform.position, RotationSpeed);
+            bool onEnemy = Physics.Raycast(turretHead.position, turretHead.forward, out raycastHit);
+            if (onEnemy)
+            {
+                if (raycastHit.transform.GetComponent<EnemyDrone>() || raycastHit.transform.root.GetComponent<EnemyDrone>())
+                {
+                    if (timeToNextShot > 1 / fireRate)
+                    {
+                        Shoot();
+                        timeToNextShot = 0;
+                    }
+                }
+            }
         }
     }
 

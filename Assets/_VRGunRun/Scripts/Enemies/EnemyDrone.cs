@@ -72,9 +72,13 @@ public class EnemyDrone : Enemy
                     child.gameObject.AddComponent<Rigidbody>();
                 }
                 child.SetParent(null);
-                Destroy(child.gameObject, 1f);
+                Destroy(child.gameObject, 3f);
+                if (child.GetComponent<EnemyDestructibleJoint>())
+                {
+                    Destroy(child.GetComponent<EnemyDestructibleJoint>());
+                }
             }
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 3f);
         }
     }
 

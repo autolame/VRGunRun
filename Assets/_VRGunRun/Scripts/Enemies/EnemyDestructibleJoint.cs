@@ -29,7 +29,6 @@ public class EnemyDestructibleJoint : MonoBehaviour
         {
             float hitDamage = collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
             ZoneHealth -= hitDamage;
-
             if (IsDestroyed)
             {
                 DetachJointChildren();
@@ -52,7 +51,11 @@ public class EnemyDestructibleJoint : MonoBehaviour
             child.SetParent(transform.parent);
             if (!child.GetComponent<Rigidbody>())
                 child.gameObject.AddComponent<Rigidbody>();
-            Destroy(child.gameObject, 1f);
+            Destroy(child.gameObject, 3f);
+            if (child.GetComponent<EnemyDestructibleJoint>())
+            {
+                Destroy(child.GetComponent<EnemyDestructibleJoint>());
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     {
         get
         {
-            return 100f - ((StartHitPointRaw - currentHitPointRaw) / 100f);
+            return  StartHitPointRaw / 100 - currentHitPointRaw / 100;
         }
     }
 
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     {
         get
         {
-            return 100f - ((StartMovementSpeedRaw - currentMovementSpeedRaw) / 100f);
+            return StartMovementSpeedRaw / 100 - currentMovementSpeedRaw / 100;
         }
     }
 
@@ -76,12 +76,12 @@ public class Enemy : MonoBehaviour
     }
     public void DamagePercentageHitPoint(float percent)
     {
-        DamageRawHitPoint(percent * (StartHitPointRaw / 100f));
+        DamageRawHitPoint(percent * (StartHitPointRaw / 100));
         StatusUpdate();
     }
     public void DamagePercentageMovementSpeed(float slowPercent)
     {
-        DamageRawMovementSpeed(slowPercent * (StartMovementSpeedRaw / 100f));
+        DamageRawMovementSpeed(slowPercent * (StartMovementSpeedRaw / 100));
         StatusUpdate();
     }
 }

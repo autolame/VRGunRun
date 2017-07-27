@@ -11,6 +11,24 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1951105763967250}
   m_IsPrefabParent: 1
+--- !u!1 &1104408159272384
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4562353841297542}
+  - component: {fileID: 33708808233004318}
+  - component: {fileID: 65727001460322504}
+  - component: {fileID: 54086985135855304}
+  m_Layer: 0
+  m_Name: TriggerRB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1470729120388894
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,9 +76,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4755804680355306}
   - component: {fileID: 33130981173987850}
-  - component: {fileID: 65656870890033422}
   - component: {fileID: 23387589700958184}
-  - component: {fileID: 114952472329485536}
+  - component: {fileID: 65476661329379266}
+  - component: {fileID: 114761613988691708}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -133,12 +151,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4844797072144866}
-  - component: {fileID: 33053896217939802}
-  - component: {fileID: 65055662687742774}
-  - component: {fileID: 23455061985947544}
   - component: {fileID: 114456930361955718}
-  - component: {fileID: 114088625582431308}
-  - component: {fileID: 54931648772049032}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -185,6 +198,19 @@ Transform:
   m_Father: {fileID: 4844797072144866}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 179.99998}
+--- !u!4 &4562353841297542
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104408159272384}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 4755804680355306}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4657336886409308
 Transform:
   m_ObjectHideFlags: 1
@@ -207,7 +233,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_Children: []
+  m_Children:
+  - {fileID: 4562353841297542}
   m_Father: {fileID: 4844797072144866}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -371,38 +398,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23455061985947544
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951105763967250}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23600094980039418
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -467,13 +462,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33053896217939802
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951105763967250}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33130981173987850
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -494,6 +482,13 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470729120388894}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33708808233004318
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104408159272384}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33759567550162818
 MeshFilter:
@@ -516,12 +511,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855478973245814}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54931648772049032
+--- !u!54 &54086985135855304
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951105763967250}
+  m_GameObject: {fileID: 1104408159272384}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -531,18 +526,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65055662687742774
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951105763967250}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65104632623344872
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -567,7 +550,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65656870890033422
+--- !u!65 &65476661329379266
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -578,6 +561,18 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65727001460322504
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104408159272384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114040148171612934
 MonoBehaviour:
@@ -591,23 +586,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 300
-  HostHealthPercentage: 30
-  HostMovementSpeedPercentage: 100
---- !u!114 &114088625582431308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951105763967250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50a4a62fc1b96b542a96fc70f4a068fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 1000
-  HostHealthPercentage: 100
+  ZoneHealth: 200
+  HostHealthPercentage: 40
   HostMovementSpeedPercentage: 100
 --- !u!114 &114094606264980008
 MonoBehaviour:
@@ -621,8 +601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 300
-  HostHealthPercentage: 30
+  ZoneHealth: 200
+  HostHealthPercentage: 40
   HostMovementSpeedPercentage: 100
 --- !u!114 &114254628113314556
 MonoBehaviour:
@@ -663,6 +643,7 @@ MonoBehaviour:
   EvasionReactionTime: 0.5
   EvasionSpeed: 0.2
   IdleTime: 5
+  Invincible: 0
   MinDistanceToTarget: 10
   MaxDistanceToTarget: 20
   directionFromPlayerToEvadeTo: {x: 0, y: 0, z: 0}
@@ -682,8 +663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 300
-  HostHealthPercentage: 30
+  ZoneHealth: 200
+  HostHealthPercentage: 40
   HostMovementSpeedPercentage: 100
 --- !u!114 &114540948860063360
 MonoBehaviour:
@@ -697,10 +678,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 300
-  HostHealthPercentage: 30
+  ZoneHealth: 200
+  HostHealthPercentage: 40
   HostMovementSpeedPercentage: 100
---- !u!114 &114952472329485536
+--- !u!114 &114761613988691708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -712,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostEnemy: {fileID: 114456930361955718}
-  ZoneHealth: 1000
+  ZoneHealth: 500
   HostHealthPercentage: 100
   HostMovementSpeedPercentage: 100
 --- !u!136 &136221404544608424

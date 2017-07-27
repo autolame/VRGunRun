@@ -23,7 +23,6 @@ public class EnemyArmorPlate : MonoBehaviour
                 rb.velocity = Vector3.up;
                 gameObject.transform.parent = null;
                 Destroy(gameObject, 10f);
-                Destroy(this);
             }
         }
     }

@@ -913,12 +913,12 @@ MonoBehaviour:
   projectile: {fileID: 114860256221338710, guid: ceef1b3c40008aa48a851cfea5a82f8e,
     type: 2}
   muzzle: {fileID: 4288030605153710}
-  muzzleVelocity: 600
-  fireRate: 300
+  muzzleVelocity: 1000
+  fireRate: 20
   shotSound: {fileID: 82960074772235364}
   muzzleFlash: {fileID: 114097616014548242, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 2}
-  RotationSpeed: 0.05
+  RotationSpeed: 1
   nearestEnemy: {fileID: 0}
 --- !u!114 &114219741974792030
 MonoBehaviour:
