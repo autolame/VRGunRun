@@ -49,7 +49,7 @@ public class GunAmmoBullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Vector3 hitPosition = collision.contacts[0].point;
+        Transform hitPosition = collision.contacts[0].otherCollider.transform;
 
         ParticleFX newFX = hitFX.SpawnAt(hitPosition, 5f);
         newFX.transform.LookAt(transform.position);

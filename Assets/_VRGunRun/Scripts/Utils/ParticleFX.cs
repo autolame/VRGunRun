@@ -10,10 +10,11 @@ using UnityEngine;
 
 public class ParticleFX : MonoBehaviour
 {
-    public ParticleFX SpawnAt(Vector3 position, float lifeTime)
+    public ParticleFX SpawnAt(Transform parentTransform, float lifeTime)
     {
         ParticleFX newFX = Instantiate(this);
-        newFX.transform.position = position;
+        newFX.transform.position = parentTransform.position;
+        newFX.transform.rotation = parentTransform.rotation;
         Destroy(newFX.gameObject, lifeTime);
         return newFX;
     }
