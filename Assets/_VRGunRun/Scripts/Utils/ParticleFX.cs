@@ -10,33 +10,11 @@ using UnityEngine;
 
 public class ParticleFX : MonoBehaviour
 {
-    public float LifeTime = 1;
-    float elapsedTime = 0;
-
-    private void Awake()
-    {
-        elapsedTime = 0;
-    }
-    private void Start()
-    {
-        elapsedTime = 0;
-    }
-
-    private void Update()
-    {
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime > LifeTime)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public ParticleFX SpawnAt(Vector3 position, float lifeTime)
     {
         ParticleFX newFX = Instantiate(this);
-        newFX.LifeTime = lifeTime;
         newFX.transform.position = position;
-
+        Destroy(newFX.gameObject, lifeTime);
         return newFX;
     }
 }

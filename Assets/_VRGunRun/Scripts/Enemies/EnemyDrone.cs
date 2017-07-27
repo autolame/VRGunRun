@@ -9,6 +9,8 @@ public class EnemyDrone : Enemy
     public float EvasionSpeed = 0.1f;
     public float IdleTime = 5f; // seconds
 
+    public bool Invincible = false;
+
     public float MinDistanceToTarget = 5f;
     public float MaxDistanceToTarget = 20f;
 
@@ -70,9 +72,9 @@ public class EnemyDrone : Enemy
                     child.gameObject.AddComponent<Rigidbody>();
                 }
                 child.SetParent(null);
-                Destroy(child, 10f);
+                Destroy(child.gameObject, 1f);
             }
-            Destroy(transform, 10f);
+            Destroy(gameObject, 1f);
         }
     }
 

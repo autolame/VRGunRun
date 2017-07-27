@@ -825,8 +825,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f4bdf60bf829a4983b2caf3c84e2309a, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 91a82bdafb2474a2eb3f190e1d8f6bf3, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   shotSound: {fileID: 82960074772235364}
   muzzleFlash: {fileID: 114097616014548242, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 2}
-  RotationSpeed: 0.2
+  RotationSpeed: 0.05
   nearestEnemy: {fileID: 0}
 --- !u!114 &114219741974792030
 MonoBehaviour:

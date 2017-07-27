@@ -110,7 +110,9 @@ public class Turret : MonoBehaviour
         }
         if (muzzleFlash)
         {
-            muzzleFlash.SpawnAt(muzzle.position, 5f);
+            var flash = muzzleFlash.SpawnAt(muzzle.position, 1f);
+            flash.gameObject.SetActive(true);
+            flash.GetComponent<ParticleSystem>().Play();
         }
     }
 

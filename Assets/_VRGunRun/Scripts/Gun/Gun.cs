@@ -281,7 +281,6 @@ public class Gun : MonoBehaviour
         newFX.transform.position = particleFX.transform.position;
         newFX.transform.rotation = particleFX.transform.rotation;
         newFX.transform.localScale = particleFX.transform.localScale;
-        newFX.LifeTime = lifeTime;
         newFX.gameObject.SetActive(true);
         newFX.GetComponent<ParticleSystem>().Play();
     }
