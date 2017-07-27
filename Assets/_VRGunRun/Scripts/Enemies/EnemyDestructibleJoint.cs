@@ -52,6 +52,7 @@ public class EnemyDestructibleJoint : MonoBehaviour
             child.SetParent(transform.parent);
             if (!child.GetComponent<Rigidbody>())
                 child.gameObject.AddComponent<Rigidbody>();
+            Destroy(child, 10f);
         }
     }
 }

@@ -69,10 +69,10 @@ public class EnemyDrone : Enemy
                 {
                     child.gameObject.AddComponent<Rigidbody>();
                 }
-                Destroy(child.gameObject, 10);
                 child.SetParent(null);
+                Destroy(child, 10f);
             }
-            Destroy(gameObject, 10f);
+            Destroy(transform, 10f);
         }
     }
 

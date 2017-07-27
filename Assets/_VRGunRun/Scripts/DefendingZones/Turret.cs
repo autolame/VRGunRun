@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    [SerializeField] private Transform turretHead;
 
     public float StartHitPoint = 2500f;
     public List<EnemyDrone> DronesInRange = new List<EnemyDrone>();
 
+    [SerializeField] private Transform turretHead;
+    [SerializeField] private GunAmmoBullet projectile;
+    [SerializeField] private Transform muzzle;
+    [SerializeField] private float muzzleVelocity = 1500f;
+    [SerializeField] private float fireRate = 600; // rounds per minute
+    [SerializeField] private AudioSource shotSound;
+    [SerializeField] private ParticleFX muzzleFlash;
+
+    float timeToNextShot;
     public float RotationSpeed = 1;
     public Enemy nearestEnemy;
     float nearestEnemyDistance;
@@ -26,34 +34,47 @@ public class Turret : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
+        // remove destroyed drones
+        for (int i = DronesInRange.Count - 1; i >= 0; i--)
+        {
+            if (DronesInRange[i] == null)
+            {
+                DronesInRange.Remove(DronesInRange[i]);
+            }
+        }
         // get nearest enemy
         foreach (var drone in DronesInRange)
         {
-            if (drone == null)
+            if (drone)
             {
-                DronesInRange.Remove(drone);
-            }
-
-            var droneDistance = Vector3.Distance(turretHead.transform.position, drone.transform.position);
-            if (droneDistance < nearestEnemyDistance)
-            {
-                nearestEnemyDistance = droneDistance;
-                nearestEnemy = drone;
-            }
-            else
-            {
-                nearestEnemyDistance = 20;
+                var droneDistance = (turretHead.position - drone.transform.position).sqrMagnitude;
+                if (droneDistance < nearestEnemyDistance)
+                {
+                    nearestEnemyDistance = droneDistance;
+                    nearestEnemy = drone;
+                }
+                else
+                {
+                    nearestEnemyDistance = Mathf.Infinity;
+                }
             }
         }
-
+        // shoot nearest enemy
         if (nearestEnemy)
         {
             SmoothLookAtPosition(nearestEnemy.transform.position, RotationSpeed);
-            bool onEnemy = Physics.Raycast(turretHead.transform.position, transform.forward, out raycastHit);
-            if (raycastHit.transform.GetComponent<EnemyDrone>())
+            bool onEnemy = Physics.Raycast(turretHead.position, turretHead.forward, out raycastHit);
+            if (onEnemy)
             {
-                Shoot();
+                if (raycastHit.transform.GetComponent<EnemyDrone>())
+                {
+                    timeToNextShot += Time.deltaTime;
+                    if (timeToNextShot > 60 / fireRate)
+                    {
+                        Shoot();
+                        timeToNextShot = 0;
+                    }
+                }
             }
         }
     }
@@ -69,18 +90,33 @@ public class Turret : MonoBehaviour
 
     void SmoothLookAtPosition(Vector3 position, float speed)
     {
-        var targetRotation = Quaternion.LookRotation(position - turretHead.transform.position);
-        turretHead.transform.rotation = Quaternion.Slerp(turretHead.transform.rotation, targetRotation, speed * Time.deltaTime);
+        var targetRotation = Quaternion.LookRotation(position - turretHead.position);
+        turretHead.rotation = Quaternion.Slerp(turretHead.rotation, targetRotation, speed * Time.deltaTime);
     }
 
     EnemyDrone NearestEnemy(EnemyDrone enemy)
     {
-        var enemyDistance = Vector3.Distance(turretHead.transform.position, enemy.transform.position);
+        var enemyDistance = Vector3.Distance(turretHead.position, enemy.transform.position);
         return enemy;
     }
 
     void Shoot()
     {
         // TODO shoot at target!
+        projectile.ShootFrom(muzzle, muzzleVelocity);
+        if (shotSound)
+        {
+            shotSound.Play();
+        }
+        if (muzzleFlash)
+        {
+            muzzleFlash.SpawnAt(muzzle.position, 5f);
+        }
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawLine(turretHead.position, raycastHit.transform.position);
+    //}
 }
