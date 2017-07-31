@@ -22,8 +22,12 @@ public class EnemySpawn : MonoBehaviour
         if (spawnTimer < 0)
         {
             spawnTimer = SpawnFrequency;
+            enemyManager.CleanUpDestroyedEnemies();
+
             if (enemyManager.IsNewEnemySpawnPossible)
+            {
                 SpawnEnemy(Prefab);
+            }
         }
     }
 
@@ -35,5 +39,7 @@ public class EnemySpawn : MonoBehaviour
         spawnedEnemy.gameObject.SetActive(true);
         spawnedEnemy.Goal = Goal;
         spawnedEnemy.MoveTowardsGoal();
+
+        enemyManager.activeEnemies.Add(spawnedEnemy);
     }
 }

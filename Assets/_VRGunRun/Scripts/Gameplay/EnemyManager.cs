@@ -11,7 +11,18 @@ public class EnemyManager : MonoBehaviour
     {
         get
         {
-            return activeEnemies.Count <= MaxEnemyActiveEnemiesCount;
+            return activeEnemies.Count < MaxEnemyActiveEnemiesCount;
+        }
+    }
+
+    public void CleanUpDestroyedEnemies()
+    {
+        for (int i = activeEnemies.Count - 1; i >= 0; i--)
+        {
+            if (activeEnemies[i] == null)
+            {
+                activeEnemies.Remove(activeEnemies[i]);
+            }
         }
     }
 }
