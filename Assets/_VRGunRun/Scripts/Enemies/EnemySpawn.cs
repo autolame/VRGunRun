@@ -8,6 +8,12 @@ public class EnemySpawn : MonoBehaviour
     public EnemyGoal Goal;
     public float SpawnFrequency = 1;  // spawn per second
     private float spawnTimer;
+    private EnemyManager enemyManager;
+
+    private void Awake()
+    {
+        enemyManager = FindObjectOfType<EnemyManager>();
+    }
 
     private void Update()
     {
@@ -16,7 +22,8 @@ public class EnemySpawn : MonoBehaviour
         if (spawnTimer < 0)
         {
             spawnTimer = SpawnFrequency;
-            SpawnEnemy(Prefab);
+            if (enemyManager.IsNewEnemySpawnPossible)
+                SpawnEnemy(Prefab);
         }
     }
 

@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 22121783}
   - component: {fileID: 22121784}
   - component: {fileID: 22121785}
+  - component: {fileID: 22121786}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -642,6 +643,19 @@ MonoBehaviour:
   SlomoTimeFactor: 0
   CurrentTimeFactor: 0
   SlomoDuration: 3
+--- !u!114 &22121786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 22121782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6080551d2800243816323a6673c07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxEnemyActiveEnemiesCount: 100
+  activeEnemies: []
 --- !u!4 &23570293 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000014232837180, guid: e397ab88678e07a45b3e5483c391a927,

@@ -22,8 +22,10 @@ public class TargetDummy : MonoBehaviour
         {
             Debug.LogWarning(gameObject.name + " CANNOT FIND GAME MANAGER");
         }
-
-        gameManager.NumberOfTargetLaunched++;
+        else
+        {
+            gameManager.NumberOfTargetLaunched++;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

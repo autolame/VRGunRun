@@ -18,7 +18,6 @@ public class TargetLauncher : MonoBehaviour
     [SerializeField] float minLaunchForce = 10; // meter/sec
     [SerializeField] float nextLaunchForce = 20;
     [SerializeField] bool useHighArc = false;
-    [SerializeField] float launchYOffSet;
 
     public float StartLaunchRate = 1;
 
@@ -56,11 +55,12 @@ public class TargetLauncher : MonoBehaviour
     {
         TargetDummy newTarget = Instantiate(targetDummy);
         newTarget.gameObject.SetActive(true);
-        newTarget.transform.position = transform.position + Vector3.up * launchYOffSet; ;
+        newTarget.transform.position = transform.position;
 
         newTarget.gameObject.GetComponent<Rigidbody>().velocity = transform.up * Random.Range(minLaunchForce, maxLaunchForce);
         newTarget.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce));
         newTarget.gameObject.GetComponent<MeshRenderer>().material.color = new Color(red, green, blue);
+        Destroy(newTarget.gameObject, 30f);
     }
     void LaunchTargetTowardsPlayer()
     {
@@ -80,10 +80,11 @@ public class TargetLauncher : MonoBehaviour
             newTarget.gameObject.GetComponent<Rigidbody>().velocity = launchVector;
             newTarget.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce), Random.Range(-maxLaunchForce, maxLaunchForce));
             newTarget.gameObject.GetComponent<MeshRenderer>().material.color = new Color(red, green, blue);
+            Destroy(newTarget.gameObject, 30f);
         }
     }
 
-    // launchVector formula http://en.wikipedia.org/wiki/Trajectory_of_a_projectile#Angle_required_to_hit_coordinate_.28x.2Cy.29
+    //launchVector formula http://en.wikipedia.org/wiki/Trajectory_of_a_projectile#Angle_required_to_hit_coordinate_.28x.2Cy.29
     bool FindLaunchVector(Vector3 launchPosition, Vector3 targetPosition, float launchForce, bool useHighArc, out Vector3 foundLaunchVector)
     {
         foundLaunchVector = Vector3.zero;
@@ -94,7 +95,7 @@ public class TargetLauncher : MonoBehaviour
         Vector3 horizontalFlightDirection = horizontalFlightVector.normalized;
         float vertitalFlightMag = horizontalFlightVector.magnitude;
 
-        float verticalFlight = flightVector.z;
+        float verticalFlight = flightVector.y;
 
         float launchForceSQ = Mathf.Pow(launchForce, 2);
 
@@ -111,21 +112,21 @@ public class TargetLauncher : MonoBehaviour
         float sqrt = Mathf.Sqrt(inSqrt);
 
         // [+] solution
-        float addTanSolution = (launchForceSQ + sqrt) / (gravity * vertitalFlightMag);
+        float TanSolutionA = (launchForceSQ + sqrt) / (gravity * vertitalFlightMag);
         // [-] solution
-        float subTanSolution = (launchForceSQ - sqrt) / (gravity * vertitalFlightMag);
+        float TanSolutionB = (launchForceSQ - sqrt) / (gravity * vertitalFlightMag);
 
         // horizontal magnitude = sqrt( TossSpeedSq / (TanSolutionAngle^2 + 1) );
-        float horizontalSQMagA = launchForceSQ / (Mathf.Pow(addTanSolution, 2) + 1.0f);
-        float horizontalSQMagB = launchForceSQ / (Mathf.Pow(subTanSolution, 2) + 1.0f);
+        float horizontalSQMagA = launchForceSQ / (Mathf.Pow(TanSolutionA, 2) + 1.0f);
+        float horizontalSQMagB = launchForceSQ / (Mathf.Pow(TanSolutionB, 2) + 1.0f);
 
         bool launchVectorFound = false;
 
         // decide on chosen arc
         float chosenHorizontalMagnitudeSQ = useHighArc ? Mathf.Min(horizontalSQMagA, horizontalSQMagB) : Mathf.Max(horizontalSQMagA, horizontalSQMagB);
         float verticalSign = useHighArc ?
-                           (horizontalSQMagA < horizontalSQMagB) ? Mathf.Sign(addTanSolution) : Mathf.Sign(subTanSolution) :
-                           (horizontalSQMagA > horizontalSQMagB) ? Mathf.Sign(addTanSolution) : Mathf.Sign(subTanSolution);
+                           (horizontalSQMagA < horizontalSQMagB) ? Mathf.Sign(TanSolutionA) : Mathf.Sign(TanSolutionB) :
+                           (horizontalSQMagA > horizontalSQMagB) ? Mathf.Sign(TanSolutionA) : Mathf.Sign(TanSolutionB);
 
         // wrapping up calculations
         float MagXY = Mathf.Sqrt(chosenHorizontalMagnitudeSQ);
@@ -137,5 +138,4 @@ public class TargetLauncher : MonoBehaviour
         return launchVectorFound;
     }
 }
-
 
