@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 245979136}
-  m_IndirectSpecularColor: {r: 0.12805185, g: 0.13521853, b: 0.122598164, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7403,7 +7403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &299727375
 Transform:
   m_ObjectHideFlags: 0
@@ -9033,7 +9033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &348289946
 Transform:
   m_ObjectHideFlags: 0
@@ -15429,7 +15429,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
@@ -20876,7 +20875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &878586683
 Transform:
   m_ObjectHideFlags: 0
@@ -25004,7 +25003,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
@@ -30714,7 +30712,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
@@ -31430,7 +31427,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
@@ -40909,7 +40905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1748207820
 Transform:
   m_ObjectHideFlags: 0
@@ -46492,7 +46488,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
@@ -47321,7 +47316,6 @@ MonoBehaviour:
   minLaunchForce: 10
   nextLaunchForce: 20
   useHighArc: 1
-  launchYOffSet: 5
   StartLaunchRate: 1
   findLaunchVector: 0
   VRPlayer: {fileID: 763941051}
