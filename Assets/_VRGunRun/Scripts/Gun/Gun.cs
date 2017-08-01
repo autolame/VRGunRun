@@ -39,6 +39,7 @@ public class Gun : MonoBehaviour
     [Header("Functionality Setup")]
     private bool caseEjected = false;
     private bool magEjected = false;
+    private bool chamberedRound = false;
     private float recoilLerp = 0;
     private float recoilVal = 0;
 
@@ -70,12 +71,12 @@ public class Gun : MonoBehaviour
 
     private SteamVR_Events.Action newPosesAppliedAction;
 
-    bool MagazineIsEmpty()
+    bool MagazineIsEmpty
     {
-        if (currentMagSize > 0)
-        { return false; }
-        else
-        { return true; }
+        get
+        {
+            return currentMagSize > 0 ? false : true;
+        }
     }
 
 
@@ -139,7 +140,7 @@ public class Gun : MonoBehaviour
             if (!magEjected)
             {
                 EjectMagazine();
-                currentMagSize = 0;
+                currentMagSize = chamberedRound ? 1 : 0;
                 magEjected = true;
             }
             else
@@ -154,7 +155,7 @@ public class Gun : MonoBehaviour
             fireReset -= autoFireRate * Time.deltaTime;
             if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
             {
-                if (!isFiring && !MagazineIsEmpty() && fireReset < 0)
+                if (!isFiring && !MagazineIsEmpty && fireReset < 0)
                 {
                     isFiring = true;
                     Shoot();
@@ -167,7 +168,7 @@ public class Gun : MonoBehaviour
         {
             if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
-                if (!isFiring && !MagazineIsEmpty())
+                if (!isFiring && !MagazineIsEmpty)
                 {
                     isFiring = true;
                     Shoot();
@@ -225,7 +226,7 @@ public class Gun : MonoBehaviour
     {
         if (autoEjectEmptyMag)
         {
-            if (MagazineIsEmpty())
+            if (MagazineIsEmpty)
             {
                 if (!magEjected)
                 {
@@ -267,6 +268,7 @@ public class Gun : MonoBehaviour
     }
     private void Shoot()
     {
+        chamberedRound = false;
         bullet.ShootFrom(muzzleTransform, muzzleVelocity);
         hand.controller.TriggerHapticPulse(hapticFeedbackStrength);
         SpawnFX(muzzleFlash, 1f);
@@ -305,7 +307,8 @@ public class Gun : MonoBehaviour
     {
         // show loaded mag
         loadedMagazine.SetActive(true);
-        currentMagSize = defaultMagSize;
+        currentMagSize = chamberedRound ? defaultMagSize + 1 : defaultMagSize;
+        chamberedRound = true;
     }
     //-------------------------------------------------------------------------------------------------
     void UpdateGUI()
@@ -331,7 +334,7 @@ public class Gun : MonoBehaviour
         if (slideTransform.localPosition == slideFeecbackTransform.localPosition)
         {
             // position reached
-            if (MagazineIsEmpty()) // check if mag is empty
+            if (MagazineIsEmpty) // check if mag is empty
             {
                 // if empty, eject and dont move back
                 EjectCase();
@@ -360,6 +363,10 @@ public class Gun : MonoBehaviour
             // get back into position to be ready to fire again 
             slideTransform.localPosition = Vector3.MoveTowards(slideTransform.localPosition, slideOriginalTransform.localPosition, slideForwardRate);
             caseEjected = false;
+            if (MagazineIsEmpty)
+                chamberedRound = false;
+            else
+                chamberedRound = true;
             //slideCloseSound.Play();
         }
     }
