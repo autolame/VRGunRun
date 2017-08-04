@@ -29,8 +29,8 @@ public class ShootMenuManager : MonoBehaviour
 
     void NewGame()
     {
-        Application.LoadLevel(0);
-        Application.UnloadLevel(-1);
+        Application.LoadLevel(1);
+        Application.UnloadLevel(0);
     }
 
     void LoadGame()
