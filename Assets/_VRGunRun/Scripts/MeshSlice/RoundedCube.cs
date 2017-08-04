@@ -7,6 +7,7 @@ using UnityEngine;
 public class RoundedCube : MonoBehaviour
 {
     public int SizeX, SizeY, SizeZ;
+    public int Roundness;
     private Vector3[] vertices;
     private Vector3[] normals;
     private Mesh mesh;
@@ -66,16 +67,17 @@ public class RoundedCube : MonoBehaviour
         {
             for (int x = 1; x < SizeX; x++)
             {
-                vertices[vert++] = new Vector3(x, SizeY, z);
+                SetVertex(vert++, x, SizeY, z);
             }
         }
         for (int z = 1; z < SizeZ; z++)
         {
             for (int x = 1; x < SizeX; x++)
             {
-                vertices[vert++] = new Vector3(x, 0, z);
+                SetVertex(vert++, x, 0, z);
             }
         }
+
         mesh.vertices = vertices;
         mesh.normals = normals;
     }
@@ -137,6 +139,43 @@ public class RoundedCube : MonoBehaviour
 
         return tri;
     }
+    //private int CreateBottomFace(int[] triangles, int t, int ring)
+    //{
+    //    int v = 1;
+    //    int vMid = vertices.Length - (SizeX - 1) * (SizeZ - 1);
+    //    t = SetQuad(triangles, t, ring - 1, vMid, 0, 1);
+    //    for (int x = 1; x < SizeX - 1; x++, v++, vMid++)
+    //    {
+    //        t = SetQuad(triangles, t, vMid, vMid + 1, v, v + 1);
+    //    }
+    //    t = SetQuad(triangles, t, vMid, v + 2, v, v + 1);
+
+    //    int vMin = ring - 2;
+    //    vMid -= SizeX - 2;
+    //    int vMax = v + 2;
+
+    //    for (int z = 1; z < SizeZ - 1; z++, vMin--, vMid++, vMax++)
+    //    {
+    //        t = SetQuad(triangles, t, vMin, vMid + SizeX - 1, vMin + 1, vMid);
+    //        for (int x = 1; x < SizeX - 1; x++, vMid++)
+    //        {
+    //            t = SetQuad(
+    //                triangles, t,
+    //                vMid + SizeX - 1, vMid + SizeX, vMid, vMid + 1);
+    //        }
+    //        t = SetQuad(triangles, t, vMid + SizeX - 1, vMax + 1, vMid, vMax);
+    //    }
+
+    //    int vTop = vMin - 1;
+    //    t = SetQuad(triangles, t, vTop + 1, vTop, vTop + 2, vMid);
+    //    for (int x = 1; x < SizeX - 1; x++, vTop--, vMid++)
+    //    {
+    //        t = SetQuad(triangles, t, vTop, vTop - 1, vMid, vMid + 1);
+    //    }
+    //    t = SetQuad(triangles, t, vTop, vTop - 1, vMid, vTop - 2);
+
+    //    return t;
+    //}
 
     private int CreateBottomFace(int[] tris, int tri, int ring)
     {
@@ -185,7 +224,37 @@ public class RoundedCube : MonoBehaviour
 
     private void SetVertex(int i, int x, int y, int z)
     {
-        vertices[i] = new Vector3(x, y, z);
+        Vector3 inner = vertices[i] = new Vector3(x, y, z);
+
+        if (x < Roundness)
+        {
+            inner.x = Roundness;
+        }
+        else if (x > SizeX - Roundness)
+        {
+            inner.x = SizeX - Roundness;
+        }
+
+        if (y < Roundness)
+        {
+            inner.y = Roundness;
+        }
+        else if (y > SizeY - Roundness)
+        {
+            inner.y = SizeY - Roundness;
+        }
+
+        if (z < Roundness)
+        {
+            inner.z = Roundness;
+        }
+        else if (z > SizeZ - Roundness)
+        {
+            inner.z = SizeZ - Roundness;
+        }
+
+        normals[i] = (vertices[i] - inner).normalized;
+        vertices[i] = inner + normals[i] * Roundness;
     }
 
     private void OnDrawGizmos()
@@ -194,8 +263,6 @@ public class RoundedCube : MonoBehaviour
         {
             return;
         }
-
-
 
         for (int i = 0; i < vertices.Length; i++)
         {
