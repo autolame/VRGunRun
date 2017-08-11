@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class RoundedCube : MonoBehaviour
+public class RoundedCubeTest : MonoBehaviour
 {
     public int SizeX, SizeY, SizeZ;
     public int Roundness;
@@ -85,10 +85,14 @@ public class RoundedCube : MonoBehaviour
 
     private void CreateTris()
     {
+        int[] trisZ = new int[(SizeX * SizeY) * 12];
+        int[] trisX = new int[(SizeY * SizeZ) * 12];
+        int[] trisY = new int[(SizeX * SizeZ) * 12];
+
         int quads = (SizeX * SizeY + SizeX * SizeZ + SizeY * SizeZ) * 2;
         int[] tris = new int[quads * 6];
         int ring = (SizeX + SizeZ) * 2;
-        int tri = 0, vert = 0;
+        int triZ = 0, triX = 0, triY = 0, tri = 0, vert = 0;
 
         for (int y = 0; y < SizeY; y++, vert++)
         {
@@ -266,8 +270,8 @@ public class RoundedCube : MonoBehaviour
 
         for (int i = 0; i < vertices.Length; i++)
         {
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(vertices[i], 0.1f);
+            //Gizmos.color = Color.white;
+            //Gizmos.DrawSphere(vertices[i], 0.1f);
             Gizmos.color = Color.red;
             Gizmos.DrawRay(vertices[i], normals[i]);
         }
